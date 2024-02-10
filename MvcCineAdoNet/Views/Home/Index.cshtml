@@ -1,3 +1,20 @@
-﻿<div class="container">
-    <h1>Pagina principal del home</h1>
+﻿@model List<Medio>
+<div class="container">
+    <h1>Películas</h1>
+    <br />
+    <div class="d-flex gap-5">
+        @foreach(Medio peli in Model)
+        {
+            <div class="card" style="width: 18rem;">
+              <img src="@peli.Imagen" class="card-img-top" alt="@peli.Imagen">
+              <div class="card-body">
+                <h5 class="card-title text-uppercase">@peli.Titulo</h5>
+                <p class="card-text">@peli.Sinopsis</p>
+                <p class="card-text">Director: @peli.Director</p>
+                <p class="card-text">Puntuación: @peli.PuntuacionMedia</p>
+                <p class="alert alert-primary d-inline p-1" role="alert">Estreno: @peli.AnioEstreno</p>
+              </div>
+            </div>
+        }
+    </div>
 </div>
