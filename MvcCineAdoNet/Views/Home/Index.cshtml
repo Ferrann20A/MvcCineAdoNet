@@ -5,10 +5,10 @@
     <div class="d-flex gap-5">
         @foreach(Medio peli in Model)
         {
-            <div class="card" style="width: 18rem;">
+            <div class="card bg-light" style="width: 18rem;">
               <img src="@peli.Imagen" class="card-img-top" alt="@peli.Imagen">
               <div class="card-body">
-                <h5 class="card-title text-uppercase">@peli.Titulo</h5>
+                <h5 class="card-title text-uppercase fw-semibold">@peli.Titulo</h5>
                 <p class="card-text">@peli.Sinopsis</p>
                 <p class="card-text">Director: @peli.Director</p>
                 <p class="card-text">Puntuación: @peli.PuntuacionMedia</p>
