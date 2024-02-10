@@ -1,0 +1,84 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Merriweather|Raleway");
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.sm-navbar {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0;
+    height: 100px;
+    align-items: center;
+}
+
+.sm-logo {
+    display: flex;
+    height: 100px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.sm-logo:hover {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sm-logo:hover a {
+    color: #003E83;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid #66f;
+}
+
+.sm-logo a {
+    font-size: 2em;
+    color: #66f;
+}
+
+.sm-nav-menu {
+    display: flex;
+    margin-right: 30px;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.sm-nav-menu li {
+    text-align: center;
+    margin: 20px auto;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.sm-nav-menu .nav-links {
+    margin-left: 50px;
+    margin-right: 20px;
+    color: #003E83;
+    padding: 8px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    border-bottom: 3px solid #66f;
+}
+
+.sm-nav-menu .nav-links:hover {
+    background: #66f;
+    color: white;
+    padding: 8px;
+    transition: all .2s ease;
+    transform: scale(1.1);
+}
