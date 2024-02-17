@@ -48,9 +48,38 @@ namespace MvcCineAdoNet.Repositories
             throw new NotImplementedException();
         }
 
-        public Medio FindMedio()
+        public Medio FindMedio(int idMedio)
         {
-            throw new NotImplementedException();
+            var consulta = from datos in this.tablaMedios.AsEnumerable()
+                           where datos.Field<int>("MedioID") == idMedio
+                           select datos;
+            var row = consulta.First();
+            Medio medio = new Medio
+            {
+                MedioId = row.Field<int>("MedioID"),
+                TipoMedioId = row.Field<int>("TipoMedioID"),
+                Titulo = row.Field<string>("Titulo"),
+                Director = row.Field<string>("Director"),
+                AnioEstreno = row.Field<int>("AnioEstreno"),
+                ClasificacionEdad = row.Field<string>("ClasificacionEdad"),
+                Sinopsis = row.Field<string>("Sinopsis"),
+                PuntuacionMedia = row.Field<int>("PuntuacionMedia"),
+                Estado = row.Field<string>("Estado"),
+                Imagen = row.Field<string>("Imagen"),
+                GeneroId = row.Field<int>("GeneroID")
+            };
+
+            // Manejar DuracionMins si viene como null
+            if (!row.IsNull("DuracionMinutos"))
+            {
+                medio.DuracionMins = row.Field<int>("DuracionMinutos");
+            }
+            else
+            {
+                // Asignar un valor por defecto o dejar como 0 si es apropiado
+                medio.DuracionMins = 0;
+            }
+            return medio;
         }
 
         public List<Actor> GetActores()

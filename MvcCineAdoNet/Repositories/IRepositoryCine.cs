@@ -6,7 +6,7 @@ namespace MvcCineAdoNet.Repositories
     {
         List<Medio> GetPeliculas();
         List<Medio> GetSeries();
-        Medio FindMedio();
+        Medio FindMedio(int idMedio);
 
         void DeleteMedio(int idMedio);
         //void InsertMedio(); Tengo que poner aqui todos los parametros

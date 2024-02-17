@@ -12,9 +12,10 @@
                     <p class="card-text">Director: @peli.Director</p>
                     <p class="card-text">Puntuación: @peli.PuntuacionMedia</p>
                     <p class="alert alert-primary d-inline p-1" role="alert">Estreno: @peli.AnioEstreno</p><br />
-                    <button class="btn btn-secondary mt-2">
+                    <a asp-controller="Home" asp-action="Details" 
+                     asp-route-idmedio="@peli.MedioId" class="btn btn-secondary mt-2">
                         Details
-                    </button>
+                    </a>
                 </div>
             </div>
         }
@@ -32,9 +33,10 @@
                     <p class="card-text">Director: @serie.Director</p>
                     <p class="card-text">Puntuación: @serie.PuntuacionMedia</p>
                     <p class="alert alert-primary d-inline p-1" role="alert">Estreno: @serie.AnioEstreno</p><br />
-                    <button class="btn btn-secondary mt-2">
+                    <a asp-controller="Home" asp-action="Details"
+                       asp-route-idmedio="@serie.MedioId" class="btn btn-secondary mt-2">
                         Details
-                    </button>
+                    </a>
                 </div>
             </div>
         }

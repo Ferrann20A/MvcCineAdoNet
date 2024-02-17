@@ -19,5 +19,11 @@ namespace MvcCineAdoNet.Controllers
             resumen.Series = this.repo.GetSeries();
             return View(resumen);
         }
+
+        public IActionResult Details(int idmedio)
+        {
+            Medio medio = this.repo.FindMedio(idmedio);
+            return View(medio);
+        }
     }
 }
