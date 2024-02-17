@@ -6,7 +6,7 @@
         public int TipoMedioId { get; set; }
         public string Titulo { get; set; }
         public string Director { get; set; }
-        public string AnioEstreno { get; set; }
+        public int AnioEstreno { get; set; }
         public string ClasificacionEdad { get; set; }
         public string Sinopsis { get; set; }
         public int DuracionMins { get; set; }

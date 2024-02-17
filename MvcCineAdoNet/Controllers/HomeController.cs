@@ -6,21 +6,18 @@ namespace MvcCineAdoNet.Controllers
 {
     public class HomeController : Controller
     {
-        RepositoryCine repo;
+        RepositoryCineSQLServer repo;
 
         public HomeController()
         {
-            this.repo = new RepositoryCine();
+            this.repo = new RepositoryCineSQLServer();
         }
         public IActionResult Index()
         {
-            List<Medio> peliculas = this.repo.GetPeliculas();
-            return View(peliculas);
-        }
-
-        public IActionResult Prueba()
-        {
-            return View();
+            ResumenMedios resumen = new ResumenMedios();
+            resumen.Peliculas = this.repo.GetPeliculas();
+            resumen.Series = this.repo.GetSeries();
+            return View(resumen);
         }
     }
 }

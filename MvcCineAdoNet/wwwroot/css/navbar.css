@@ -20,6 +20,8 @@ a {
     padding-bottom: 0;
     height: 100px;
     align-items: center;
+    background-color:red;
+    /*background-color: #b6d7fc;*/
 }
 
 .sm-logo {
@@ -28,7 +30,7 @@ a {
     width: 100px;
     justify-content: center;
     align-items: center;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
     border-bottom: 3px solid transparent;
 }
 
