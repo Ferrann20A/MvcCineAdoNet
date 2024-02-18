@@ -7,9 +7,11 @@ namespace MvcCineAdoNet.Repositories
         List<Medio> GetPeliculas();
         List<Medio> GetSeries();
         Medio FindMedio(int idMedio);
-
         void DeleteMedio(int idMedio);
-        //void InsertMedio(); Tengo que poner aqui todos los parametros
+        void InsertMedio(int idTipoMedio, string titulo, 
+            string director, int anioEstreno, string clasificacionEdad,
+            string sinopsis, int duracionmins, int puntuacionmedia, 
+            string estado, string imagen, int idGenero);
         //void UpdateMedio();
         List<Genero> GetGeneros();
         void DeleteGenero(int idGenero);
