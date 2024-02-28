@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IRepositoryCine, RepositoryCineSQLServer>();
+//builder.Services.AddTransient<IRepositoryCine, RepositoryCineSQLServer>();
 
 
 var app = builder.Build();
