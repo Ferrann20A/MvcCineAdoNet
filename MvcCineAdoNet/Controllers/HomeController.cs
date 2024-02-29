@@ -14,16 +14,12 @@ namespace MvcCineAdoNet.Controllers
         }
         public IActionResult Index()
         {
-            ResumenMedios resumen = new ResumenMedios();
-            resumen.Peliculas = this.repo.GetPeliculas();
-            resumen.Series = this.repo.GetSeries();
-            return View(resumen);
+            return View();
         }
 
-        public IActionResult Details(int idmedio)
+        public IActionResult Prueba()
         {
-            Medio medio = this.repo.FindMedio(idmedio);
-            return View(medio);
+            return View();
         }
     }
 }

@@ -1,44 +1,4 @@
-﻿@model ResumenMedios
+﻿
 <div class="container">
-    <h1 class="text-center">Películas</h1>
-    <br />
-    <div class="d-flex gap-5 flex-wrap">
-        @foreach (Medio peli in Model.Peliculas)
-        {
-            <div class="card bg-light" style="width: 18rem;">
-                <img src="~/images/medios/@peli.Imagen" class="card-img-top" style="height:25rem;" alt="@peli.Imagen">
-                <div class="card-body">
-                    <h5 class="card-title text-uppercase fw-semibold">@peli.Titulo</h5>
-                    <p class="card-text">Director: @peli.Director</p>
-                    <p class="card-text">Puntuación: @peli.PuntuacionMedia</p>
-                    <p class="alert alert-primary d-inline p-1" role="alert">Estreno: @peli.AnioEstreno</p><br />
-                    <a asp-controller="Home" asp-action="Details" 
-                     asp-route-idmedio="@peli.MedioId" class="btn btn-secondary mt-2">
-                        Details
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
-    <br />
-    <h1 class="text-center">Series</h1>
-    <br />
-    <div class="d-flex gap-5 flex-wrap">
-        @foreach (Medio serie in Model.Series)
-        {
-            <div class="card bg-light" style="width: 18rem;">
-                <img src="~/images/medios/@serie.Imagen" class="card-img-top" style="height:25rem;" alt="@serie.Imagen">
-                <div class="card-body">
-                    <h5 class="card-title text-uppercase fw-semibold">@serie.Titulo</h5>
-                    <p class="card-text">Director: @serie.Director</p>
-                    <p class="card-text">Puntuación: @serie.PuntuacionMedia</p>
-                    <p class="alert alert-primary d-inline p-1" role="alert">Estreno: @serie.AnioEstreno</p><br />
-                    <a asp-controller="Home" asp-action="Details"
-                       asp-route-idmedio="@serie.MedioId" class="btn btn-secondary mt-2">
-                        Details
-                    </a>
-                </div>
-            </div>
-        }
-    </div>
+    <h1 class="text-center">Home</h1>
 </div>
