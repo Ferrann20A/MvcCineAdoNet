@@ -12,7 +12,9 @@
     <body>
         <nav class="sm-navbar">
             <div class="sm-logo">
-                <a>logo</a>
+                <a asp-controller="Home" asp-action="Index">
+                    <img id="imagen-logo" src="~/images/logo/logo.png" alt="img_logo" />
+                </a>
             </div>
             <ul class="sm-nav-menu">
                 <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
@@ -35,7 +37,6 @@
         </footer>
         <script src="~/js/jquery-3.7.1.min.js"></script>
         <script src="~/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/navbar.js"></script>
         @RenderSection("scripts", false)
     </body>
 </html>

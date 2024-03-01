@@ -1,6 +1,6 @@
 ﻿namespace MvcCineAdoNet.Repositories
 {
-    public class RepositoryCineSQLServer
+    public class RepositoryCine
     {
 
     }

@@ -1,8 +1,8 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=Merriweather|Raleway");
 
-* {
+/** {
     box-sizing: border-box;
-}
+}*/
 
 html, body {
     margin: 0;
@@ -16,20 +16,21 @@ a {
 
 .sm-navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-bottom: 0;
     height: 100px;
     align-items: center;
+    box-shadow: 0 4px 6px -6px #222;
 }
 
 .sm-logo {
     display: flex;
-    height: 100px;
-    width: 100px;
+    /*height: 100px;*/
+    /*width: 100px;*/
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease;
-    border-bottom: 3px solid transparent;
+    /*border-bottom: 3px solid transparent;*/
 }
 
 .sm-logo:hover {
@@ -43,10 +44,10 @@ a {
     border-bottom: 3px solid #66f;
 }
 
-.sm-logo a {
+/*.sm-logo a {
     font-size: 2em;
     color: #66f;
-}
+}*/
 
 .sm-nav-menu {
     display: flex;

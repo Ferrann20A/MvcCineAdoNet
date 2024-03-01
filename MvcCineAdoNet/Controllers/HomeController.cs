@@ -6,12 +6,6 @@ namespace MvcCineAdoNet.Controllers
 {
     public class HomeController : Controller
     {
-        RepositoryCineSQLServer repo;
-
-        public HomeController()
-        {
-            this.repo = new RepositoryCineSQLServer();
-        }
         public IActionResult Index()
         {
             return View();
