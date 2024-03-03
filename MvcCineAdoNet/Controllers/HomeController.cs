@@ -6,14 +6,28 @@ namespace MvcCineAdoNet.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IRepositoryCineBook repo;
+
+        public HomeController(IRepositoryCineBook repo)
+        {
+            this.repo = repo;
+        }
+
+        public async Task<IActionResult> Index()
         {
             return View();
         }
 
-        public IActionResult Prueba()
+        public async Task<IActionResult> IndexPrueba()
         {
-            return View();
+            List<Pelicula> peliculas = await this.repo.GetPeliculas();
+            return View(peliculas);
+        }
+
+        public async Task<IActionResult> Prueba()
+        {
+            List<Serie> series = await this.repo.GetSeries();
+            return View(series);
         }
     }
 }

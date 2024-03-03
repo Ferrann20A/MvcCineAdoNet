@@ -25,15 +25,12 @@ a {
 
 .sm-logo {
     display: flex;
-    /*height: 100px;*/
-    /*width: 100px;*/
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease;
-    /*border-bottom: 3px solid transparent;*/
 }
 
-.sm-logo:hover {
+/*.sm-logo:hover {
     transition: all 0.2s ease;
     cursor: pointer;
 }
@@ -42,7 +39,7 @@ a {
     color: #003E83;
     transition: all 0.2s ease;
     border-bottom: 3px solid #66f;
-}
+}*/
 
 /*.sm-logo a {
     font-size: 2em;

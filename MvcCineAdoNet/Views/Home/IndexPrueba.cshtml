@@ -1,10 +1,10 @@
-﻿@model IEnumerable<MvcCineAdoNet.Models.Serie>
+﻿@model IEnumerable<MvcCineAdoNet.Models.Pelicula>
 
 @{
-    ViewData["Title"] = "Prueba";
+    ViewData["Title"] = "IndexPrueba";
 }
 <div class="container">
-    <h1>Prueba</h1>
+    <h1>Index Prueba</h1>
 
     <p>
         <a asp-action="Create">Create New</a>
@@ -13,19 +13,19 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.IdSerie)
+                    @Html.DisplayNameFor(model => model.IdPelicula)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Titulo)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Creador)
+                    @Html.DisplayNameFor(model => model.Director)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AnioEstreno)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.NumTemporadas)
+                    @Html.DisplayNameFor(model => model.Duracion)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Popularidad)
@@ -52,19 +52,19 @@
     @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdSerie)
+                    @Html.DisplayFor(modelItem => item.IdPelicula)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Titulo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Creador)
+                    @Html.DisplayFor(modelItem => item.Director)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AnioEstreno)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NumTemporadas)
+                    @Html.DisplayFor(modelItem => item.Duracion)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Popularidad)
