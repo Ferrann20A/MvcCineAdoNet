@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5rem 0 5rem 0;
+    margin: 2rem 0 2rem 0;
 }
 
 .form-container {
@@ -17,7 +17,7 @@
 
 .login {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: .5rem;
     font-size: 36px;
     color: #EF233C;
 }
