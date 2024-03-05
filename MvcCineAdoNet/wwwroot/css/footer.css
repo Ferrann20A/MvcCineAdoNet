@@ -1,3 +1,71 @@
-﻿.contenedor-principal{
-    min-height: calc(100vh - 100px - 57px);
+﻿.contenedor-principal {
+    min-height: calc(100vh - 100px - 404px);
+    margin-top: 1.5rem;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(8px);
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Aplicamos la transición para hacerla suave */
+#lista-links #lista-item {
+  transition: transform 0.3s ease;
+}
+
+/* Aplicamos la animación slideRight al hacer hover sobre el <li> */
+#lista-links #lista-item:hover {
+  animation: slideRight 0.3s ease forwards;
+}
+
+/* Aplicamos la animación slideLeft al quitar el hover sobre el <li> */
+#lista-links #lista-item:not(:hover) {
+  animation: slideLeft 0.3s ease forwards;
+}
+
+#phone,
+#correo,
+#hora {
+    margin: .3rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+#email::placeholder {
+    color: rgb(167, 167, 167);
+}
+
+#facebook:hover i {
+    color: #3b5998;
+}
+
+#twitter:hover i {
+    color: #00acee;
+}
+
+#instagram:hover i {
+    color: rgb(255, 99, 117);
+}
+
+#linkedin:hover i {
+    color: #0e76a8;
+}
+
+#youtube:hover i {
+    color: red;
 }

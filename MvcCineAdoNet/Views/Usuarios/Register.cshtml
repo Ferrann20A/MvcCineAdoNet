@@ -1,0 +1,23 @@
+﻿<head>
+    <link href="~/css/register.css" rel="stylesheet" />
+</head>
+<div class="container">
+    <div class="contenedor">
+        <div class="form-container">
+            <h1 class="register">Regístrate</h1>
+            <form method="post" class="form-register">
+                <label class="label">Nombre</label>
+                <input type="text" name="nombre" class="input-form" placeholder="Jhon" required />
+                <label class="label">Email</label>
+                <input type="text" name="email" class="input-form" placeholder="email@example.com" required />
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input-form" placeholder="***********" required />
+                <button class="btn-form-register">
+                    Registrar
+                </button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <h1>@ViewData["mensaje"]</h1>
+</div>

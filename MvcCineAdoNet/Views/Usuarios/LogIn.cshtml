@@ -1,0 +1,29 @@
+﻿<head>
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<div class="container">
+    <div class="contenedor">
+        <div class="form-container">
+            <h1 class="login">LogIn</h1>
+            <br />
+            <h1>@ViewData["mensaje"]</h1>
+            <form method="post" class="form-login">
+                <label class="label">Email</label>
+                <input type="text" name="email" class="input-form" placeholder="email@example.com" required>
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input-form" placeholder="***********" required>
+                <p>
+                    <small class="text-warning">@ViewData["mensaje_error"]</small>
+                </p>
+                <button class="btn-form-login">
+                    LogIn
+                </button>
+            </form>
+            <p class="p-link">
+                ¿Aún no tienes cuenta? <a asp-controller="Usuarios" asp-action="Register" class="signup-link">
+                Regístrate
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

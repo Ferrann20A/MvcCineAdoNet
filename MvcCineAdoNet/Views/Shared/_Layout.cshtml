@@ -6,30 +6,117 @@
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/navbar.css" rel="stylesheet" />
         <link href="~/css/footer.css" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/f5332b3830.js" crossorigin="anonymous"></script>
         <title>Cine Book</title>
     </head>
     <body>
         <nav class="sm-navbar">
-            <div class="sm-logo">
+            <div class="sm-logo m-2">
                 <a asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo/logo_app.png" alt="img_logo" width="200"/>
+                    <img src="~/images/logo/logo_app_2-removebg.png" alt="img_logo" width="190"/>
                 </a>
             </div>
             <ul class="sm-nav-menu">
                 <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
                 <li><a asp-controller="Home" asp-action="IndexPrueba" class="nav-links">IndexPrueba</a></li>
                 <li><a asp-controller="Home" asp-action="Prueba" class="nav-links">Prueba</a></li>
-                <li><a href="#" class="nav-links">Login</a></li>
+                <li><a asp-controller="Home" asp-action="Index" class="nav-links">Link</a></li>
             </ul>
+            <div class="sm-login">
+                <a asp-controller="Usuarios" asp-action="LogIn" class="btn-login">
+                    LogIn
+                </a>
+            </div>
         </nav>
         <div class="contenedor-principal">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </div>
-        <footer class="footer border-top mt-auto py-3">
-            <div class="container text-center">
-                <span class="text-muted">&copy; 2024 - CineBook - Ferrán Aguilar</span>
+        <footer class="text-center bg-dark">
+            <div class="container p-4">
+              <section id="iconos" class="mb-4">
+                <a id="facebook" href="#!" class="btn btn-outline-light m-1" role="button">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a id="twitter" href="#!" class="btn btn-outline-light m-1" role="button">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a id="youtube" href="#!" class="btn btn-outline-light m-1" role="button">
+                  <i class="fab fa-youtube"></i>
+                </a>
+                <a id="instagram" href="#!" class="btn btn-outline-light m-1" role="button">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a id="linkedin" href="https://www.linkedin.com/in/ferrán-aguilar-vinadé/" target="_blank" class="btn btn-outline-light m-1" role="button">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </section>
+              <section class="mb-4">
+                <p class="text-white">
+                  Descubre una experiencia única en nuestro sitio web. Sumérgete en el mundo del cine viendo todas las posibilidades y sorpresas que tenemos preparadas para ti.
+                  <br>¡Te aseguramos que no te arrepentirás de elegirnos!
+                </p>
+              </section>
+              <section>
+                <div class="row text-white">
+                  <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Sobre Nosotros</h5>
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <i id="phone" class="fa-solid fa-phone"></i>+34 68561478
+                      </li>
+                      <li>
+                        <i id="correo" class="fa-solid fa-envelope"></i>cinebook@gmail.com
+                      </li>
+                      <li>
+                        <i id="hora" class="fa-regular fa-clock"></i> Atención al cliente: 9:00 - 19:00
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Regístrate</h5>
+                    <ul class="list-unstyled mb-0">
+                      <li>
+                        <section>
+                          <form action="">
+                            <div class="row justify-content-center">
+                              <div class="col">
+                                <p>Regístrate y accede todas las peliculas y series a tu gusto con un par de ventajas!</p>
+                              </div>
+                            </div>
+                            <div class="row justify-content-center">
+                              <div class="col-auto">
+                                <a asp-controller="Usuarios" asp-action="Register" class="btn btn-outline-light mb-4">Registrarse</a>
+                              </div>
+                            </div>
+                          </form>
+                        </section>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Enlaces Útiles</h5>
+                    <ul id="lista-links" class="list-unstyled mb-0 d-flex align-items-center flex-column">
+                      <li id="lista-item">
+                        <a href="#!" class="link text-white">Quienes somos</a>
+                      </li>
+                      <li id="lista-item">
+                        <a href="#!" class="link text-white">Política de Privacidad</a>
+                      </li>
+                      <li id="lista-item">
+                        <a href="#!" class="link text-white">Política de Cookies</a>
+                      </li>
+                      <li id="lista-item">
+                        <a href="#!" class="link text-white">Condiciones Legales</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="text-white text-center p-3">
+                  © 2024 Copyright: Ferrán Aguilar Vinadé
             </div>
         </footer>
         <script src="~/js/jquery-3.7.1.min.js"></script>
