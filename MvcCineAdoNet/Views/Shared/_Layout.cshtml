@@ -9,6 +9,7 @@
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/navbar.css" rel="stylesheet" />
         <link href="~/css/footer.css" rel="stylesheet" />
+        <link href="~/css/buscadorPeliculas.css" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/f5332b3830.js" crossorigin="anonymous"></script>
         <title>Cine Book</title>
     </head>
@@ -19,52 +20,11 @@
     }
     @if (user != null && user.Rol == "usuario")
     {
-        <nav class="sm-navbar">
-            <div class="sm-logo m-2">
-                <a asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo/logo_app.png" alt="img_logo" width="190" />
-                </a>
-            </div>
-            <ul class="sm-nav-menu">
-                <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
-                <li><a asp-controller="Peliculas" asp-action="BuscadorPeliculas" class="nav-links">Películas</a></li>
-                <li><a asp-controller="Series" asp-action="BuscadorSeries" class="nav-links">Series</a></li>
-                <li><a asp-controller="Home" asp-action="Index" class="nav-links">Mi Lista</a></li>
-            </ul>
-            <div class="sm-login d-flex gap-3">
-                <a asp-controller="Usuarios" asp-action="LogOut" class="btn-login">
-                    LogOut
-                </a>
-                <a asp-controller="Usuarios" asp-action="Perfil"
-                    class="btn-perfil">
-                    <i id="user-icon" class="fa-solid fa-circle-user"></i>
-                </a>
-            </div>
-        </nav>
+        <partial name="_LoginUserUsuario" />
     }
     @if (user != null && user.Rol == "admin")
     {
-        <nav class="sm-navbar">
-            <div class="sm-logo m-2">
-                <a asp-controller="Home" asp-action="Index">
-                    <img src="~/images/logo/logo_app.png" alt="img_logo" width="190" />
-                </a>
-            </div>
-            <ul class="sm-nav-menu">
-                <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
-                <li><a asp-controller="Peliculas" asp-action="BuscadorPeliculas" class="nav-links">Películas</a></li>
-                <li><a asp-controller="Series" asp-action="BuscadorSeries" class="nav-links">Series</a></li>
-            </ul>
-            <div class="sm-login d-flex gap-3">
-                <a asp-controller="Usuarios" asp-action="LogOut" class="btn-login">
-                    LogOut
-                </a>
-                <a asp-controller="Admin" asp-action="Index"
-                   asp-route-idUsuario="@user.IdUsuario" class="btn-perfil">
-                    <i id="user-icon" class="fa-solid fa-circle-user"></i>
-                </a>
-            </div>
-        </nav>
+        <partial name="_LoginUserAdmin" />
     }
         <div class="contenedor-principal">
             <main role="main" class="pb-3">

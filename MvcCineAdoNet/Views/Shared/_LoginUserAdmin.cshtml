@@ -1,4 +1,7 @@
-﻿<nav class="sm-navbar">
+﻿@{
+    Usuario user = Context.Session.GetObject<Usuario>("usuario");
+}
+<nav class="sm-navbar">
     <div class="sm-logo m-2">
         <a asp-controller="Home" asp-action="Index">
             <img src="~/images/logo/logo_app.png" alt="img_logo" width="190" />
@@ -8,11 +11,14 @@
         <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
         <li><a asp-controller="Peliculas" asp-action="BuscadorPeliculas" class="nav-links">Películas</a></li>
         <li><a asp-controller="Series" asp-action="BuscadorSeries" class="nav-links">Series</a></li>
-        <li><a asp-controller="Home" asp-action="Index" class="nav-links">Link</a></li>
     </ul>
-    <div class="sm-login">
-        <a asp-controller="Usuarios" asp-action="LogIn" class="btn-login">
-            LogIn
+    <div class="sm-login d-flex gap-3">
+        <a asp-controller="Usuarios" asp-action="LogOut" class="btn-login">
+            LogOut
+        </a>
+        <a asp-controller="Admin" asp-action="Index"
+           class="btn-perfil">
+            <i id="user-icon" class="fa-solid fa-circle-user"></i>
         </a>
     </div>
 </nav>

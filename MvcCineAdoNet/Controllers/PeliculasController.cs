@@ -22,6 +22,11 @@ namespace MvcCineAdoNet.Controllers
         [HttpPost]
         public async Task<IActionResult> BuscadorPeliculas(string titulo)
         {
+            if(titulo == null)
+            {
+                ViewData["mensaje"] = "Debe introducir un título para buscar una película.";
+                return View();
+            }
             List<Pelicula> peliculasEncontradas = await this.repo.BuscadorPeliculasAsync(titulo);
             return View(peliculasEncontradas);
         }

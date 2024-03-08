@@ -8,11 +8,15 @@
         <li><a asp-controller="Home" asp-action="Index" class="nav-links">Home</a></li>
         <li><a asp-controller="Peliculas" asp-action="BuscadorPeliculas" class="nav-links">Películas</a></li>
         <li><a asp-controller="Series" asp-action="BuscadorSeries" class="nav-links">Series</a></li>
-        <li><a asp-controller="Home" asp-action="Index" class="nav-links">Link</a></li>
+        <li><a asp-controller="Home" asp-action="Index" class="nav-links">Mi Lista</a></li>
     </ul>
-    <div class="sm-login">
-        <a asp-controller="Usuarios" asp-action="LogIn" class="btn-login">
-            LogIn
+    <div class="sm-login d-flex gap-3">
+        <a asp-controller="Usuarios" asp-action="LogOut" class="btn-login">
+            LogOut
+        </a>
+        <a asp-controller="Usuarios" asp-action="Perfil"
+           class="btn-perfil">
+            <i id="user-icon" class="fa-solid fa-circle-user"></i>
         </a>
     </div>
 </nav>
