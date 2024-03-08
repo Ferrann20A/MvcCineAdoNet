@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
+using MvcCineAdoNet.Extensions;
 
 namespace MvcCineAdoNet.Controllers
 {
@@ -40,9 +41,27 @@ namespace MvcCineAdoNet.Controllers
             }
             else
             {
+                HttpContext.Session.SetObject("usuario", user);
                 ViewData["mensaje"] = "Te has logueado correctamente";
                 return View();
             }
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("usuario");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> PerfilUsuario(int idUsuario)
+        {
+            Usuario user = await this.repo.FindUsuarioAsync(idUsuario);
+            return View(user);
+        }
+
+        public IActionResult Perfil()
+        {
+            return View();
         }
     }
 }

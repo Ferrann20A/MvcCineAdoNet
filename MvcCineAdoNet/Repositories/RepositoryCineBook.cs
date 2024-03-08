@@ -1,8 +1,47 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MvcCineAdoNet.Data;
 using MvcCineAdoNet.Helpers;
 using MvcCineAdoNet.Models;
 using MvcCoreCryptography.Helpers;
+
+#region VIEWS Y PROCEDURES
+
+//create procedure SP_BUSCADOR_PELICULAS
+//(@titulo nvarchar(100))
+//as
+//	select *
+//	from pelicula
+//	where titulo like '%' + @titulo + '%'
+//go
+
+
+//create procedure SP_BUSCADOR_SERIES
+//(@titulo nvarchar(100))
+//as
+//	select *
+//	from serie
+//	where titulo like '%' + @titulo + '%'
+//go
+
+//create procedure SP_FIND_PELICULA
+//(@idpelicula int)
+//as
+//	select *
+//	from pelicula
+//	where idpelicula = @idpelicula
+//go
+
+//create procedure SP_FIND_SERIE
+//(@idserie int)
+//as
+//	select *
+//	from serie
+//	where idserie = @idserie
+//go
+
+#endregion
 
 namespace MvcCineAdoNet.Repositories
 {
@@ -15,7 +54,7 @@ namespace MvcCineAdoNet.Repositories
             this.cineContext = cineContext;
         }
 
-        public async Task<List<Pelicula>> GetPeliculas()
+        public async Task<List<Pelicula>> GetPeliculasAsync()
         {
             var consulta = from datos in this.cineContext.Peliculas
                            select datos;
@@ -23,7 +62,7 @@ namespace MvcCineAdoNet.Repositories
             return peliculas;
         }
 
-        public async Task<List<Serie>> GetSeries()
+        public async Task<List<Serie>> GetSeriesAsync()
         {
             var consulta = from datos in this.cineContext.Series
                            select datos;
@@ -80,5 +119,46 @@ namespace MvcCineAdoNet.Repositories
             }
         }
 
+        public async Task<Usuario> FindUsuarioAsync(int idUsuario)
+        {
+            var empleado = await this.cineContext.Usuarios.FirstOrDefaultAsync(z => z.IdUsuario == idUsuario);
+            return empleado;
+        }
+
+        public async Task<List<Pelicula>> BuscadorPeliculasAsync(string titulo)
+        {
+            string sql = "SP_BUSCADOR_PELICULAS @titulo";
+            SqlParameter pamTitulo = new SqlParameter("@titulo", titulo);
+            var consulta = this.cineContext.Peliculas.FromSqlRaw(sql, pamTitulo);
+            List<Pelicula> peliculas = await consulta.ToListAsync();
+            return peliculas;
+        }
+
+        public async Task<List<Serie>> BuscadorSeriesAsync(string titulo)
+        {
+            string sql = "SP_BUSCADOR_SERIES @titulo";
+            SqlParameter pamTitulo = new SqlParameter("@titulo", titulo);
+            var consulta = this.cineContext.Series.FromSqlRaw(sql, pamTitulo);
+            List<Serie> series = await consulta.ToListAsync();
+            return series;
+        }
+
+        public async Task<Pelicula> FindPeliculaAsync(int idpelicula)
+        {
+            string sql = "SP_FIND_PELICULA @idpelicula";
+            SqlParameter pamId = new SqlParameter("@idpelicula", idpelicula);
+            var consulta = this.cineContext.Peliculas.FromSqlRaw(sql, pamId);
+            Pelicula peli = await consulta.FirstOrDefaultAsync();
+            return peli;
+        }
+
+        public async Task<Serie> FindSerieAsync(int idserie)
+        {
+            string sql = "SP_FIND_SERIE @idserie";
+            SqlParameter pamId = new SqlParameter("@idserie", idserie);
+            var consulta = this.cineContext.Series.FromSqlRaw(sql, pamId);
+            Serie serie = await consulta.FirstOrDefaultAsync();
+            return serie;
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿@{
+    Usuario user = Context.Session.GetObject<Usuario>("usuario");
+}
+<div class="container">
+    <ul>
+        <li>
+            <a asp-controller="Usuarios" asp-action="PerfilUsuario"
+                asp-route-idUsuario="@user.IdUsuario">
+                Perfil @user.IdUsuario, @user.Nombre
+            </a>
+        </li>
+        <li>
+            <a asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-idUsuario="@user.IdUsuario">
+                Perfil 2
+            </a>
+        </li>
+    </ul>
+</div>

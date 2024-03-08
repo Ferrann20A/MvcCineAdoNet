@@ -17,6 +17,7 @@ a {
 }
 
 .sm-navbar {
+    z-index: 999;
     display: flex;
     justify-content: space-around;
     padding-bottom: 0;
@@ -93,3 +94,12 @@ a {
     border-radius: 2rem;
 }
 
+#user-icon {
+    font-size: 2.3rem;
+    color: #EF233C;
+    transition: .5s;
+}
+
+#user-icon:hover {
+    color: #D80032;
+}

@@ -20,14 +20,27 @@ namespace MvcCineAdoNet.Controllers
 
         public async Task<IActionResult> IndexPrueba()
         {
-            List<Pelicula> peliculas = await this.repo.GetPeliculas();
+            List<Pelicula> peliculas = await this.repo.GetPeliculasAsync();
             return View(peliculas);
         }
 
         public async Task<IActionResult> Prueba()
         {
-            List<Serie> series = await this.repo.GetSeries();
+            List<Serie> series = await this.repo.GetSeriesAsync();
             return View(series);
         }
+
+        //PRUEBA
+        public async Task<IActionResult> PerfilUsuarioPrueba(int idusuario)
+        {
+            Usuario user = await this.repo.FindUsuarioAsync(idusuario);
+            return View(user);
+        }
+
+        public IActionResult PerfilPrueba()
+        {
+            return View();
+        }
+
     }
 }

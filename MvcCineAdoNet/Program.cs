@@ -25,12 +25,15 @@ var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
 
+app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
