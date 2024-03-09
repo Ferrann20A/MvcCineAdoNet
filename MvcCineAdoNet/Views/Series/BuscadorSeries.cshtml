@@ -1,35 +1,48 @@
 ﻿@model List<Serie>
 
 <div class="container">
-    <h1>Buscador Series</h1>
-    <form method="post">
-        <input type="text" name="titulo" class="form-contro" />
-        <br />
-        <button class="btn btn-primary">
-            Buscar
-        </button>
-    </form>
-    <br />
-    @if (Model != null)
-    {
-        <ul class="list-group">
+    <div class="buscador">
+        <form method="post" class="buscador-form">
+            <input type="text" name="titulo" class="input-buscador"
+                   placeholder="Busca una serie para obtener información..." />
+            <button class="btn-buscar">
+                <i id="lupa" class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <h2>@ViewData["mensaje"]</h2>
+    <div class="series-container">
+        @if (Model != null)
+        {
             @foreach (Serie serie in Model)
             {
-                <li class="list-group-item">
-                    @serie.Titulo, Director: @serie.Creador
-                </li>
+                <div class="serie-card">
+                    <img src="~/images/series/@serie.Imagen" alt="@serie.Titulo" class="serie-imagen">
+                    <div class="serie-info">
+                        <a asp-controller="Series" asp-action="DetailsSerie"
+                           asp-route-idserie="@serie.IdSerie">
+                            <h2 class="pelicula-titulo">@serie.Titulo ● @serie.AnioEstreno</h2>
+                        </a>
+                        <p class="serie-director">Director: @serie.Creador</p>
+                    </div>
+                </div>
             }
-        </ul>
-    }
-    else
-    {
-        <ul class="list-group">
+        }
+        else
+        {
             @foreach (Serie serie in Model)
             {
-                <li class="list-group-item">
-                    @serie.Titulo, Director: @serie.Creador
-                </li>
+                <div class="serie-card">
+                    <img src="~/images/series/@serie.Imagen" alt="@serie.Titulo" class="serie-imagen">
+                    <div class="serie-info">
+                        <a asp-controller="Series" asp-action="DetailsSerie"
+                           asp-route-idserie="@serie.IdSerie">
+                            <h2 class="pelicula-titulo">@serie.Titulo ● @serie.AnioEstreno</h2>
+                        </a>
+                        <p class="serie-director">Director: @serie.Creador</p>
+                    </div>
+                </div>
             }
-        </ul>
-    }
+        }
+    </div>
 </div>

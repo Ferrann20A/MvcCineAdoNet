@@ -145,20 +145,14 @@ namespace MvcCineAdoNet.Repositories
 
         public async Task<Pelicula> FindPeliculaAsync(int idpelicula)
         {
-            string sql = "SP_FIND_PELICULA @idpelicula";
-            SqlParameter pamId = new SqlParameter("@idpelicula", idpelicula);
-            var consulta = this.cineContext.Peliculas.FromSqlRaw(sql, pamId);
-            Pelicula peli = await consulta.FirstOrDefaultAsync();
-            return peli;
+            return await this.cineContext.Peliculas.FirstOrDefaultAsync(x => x.IdPelicula == idpelicula);
         }
 
         public async Task<Serie> FindSerieAsync(int idserie)
         {
-            string sql = "SP_FIND_SERIE @idserie";
-            SqlParameter pamId = new SqlParameter("@idserie", idserie);
-            var consulta = this.cineContext.Series.FromSqlRaw(sql, pamId);
-            Serie serie = await consulta.FirstOrDefaultAsync();
-            return serie;
+            return await this.cineContext.Series.FirstOrDefaultAsync(z => z.IdSerie == idserie);
         }
+
+        
     }
 }

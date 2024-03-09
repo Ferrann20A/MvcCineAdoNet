@@ -19,7 +19,10 @@
                 <div class="pelicula-card">
                     <img src="~/images/peliculas/@peli.Imagen" alt="@peli.Titulo" class="pelicula-imagen">
                     <div class="pelicula-info">
-                        <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
+                           asp-route-idpelicula="@peli.IdPelicula">
+                            <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        </a>
                         <p class="pelicula-director">Director: @peli.Director</p>
                     </div>
                 </div>
@@ -32,7 +35,10 @@
                 <div class="pelicula-card">
                     <img src="~/images/peliculas/@peli.Imagen" alt="@peli.Titulo" class="pelicula-imagen">
                     <div class="pelicula-info">
-                        <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
+                            asp-route-idpelicula="@peli.IdPelicula">
+                            <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        </a>
                         <p class="pelicula-director">Director: @peli.Director</p>
                     </div>
                 </div>

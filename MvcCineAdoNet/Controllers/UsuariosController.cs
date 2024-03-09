@@ -42,8 +42,7 @@ namespace MvcCineAdoNet.Controllers
             else
             {
                 HttpContext.Session.SetObject("usuario", user);
-                ViewData["mensaje"] = "Te has logueado correctamente";
-                return View();
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -60,6 +59,11 @@ namespace MvcCineAdoNet.Controllers
         }
 
         public IActionResult Perfil()
+        {
+            return View();
+        }
+
+        public IActionResult MiListaUsuario()
         {
             return View();
         }

@@ -25,5 +25,11 @@ namespace MvcCineAdoNet.Controllers
             List<Serie> seriesEncontradas = await this.repo.BuscadorSeriesAsync(titulo);
             return View(seriesEncontradas);
         }
+
+        public async Task<IActionResult> DetailsSerie(int idserie)
+        {
+            Serie serie = await this.repo.FindSerieAsync(idserie);
+            return View(serie);
+        }
     }
 }

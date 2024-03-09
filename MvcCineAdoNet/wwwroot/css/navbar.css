@@ -19,9 +19,9 @@ a {
 .sm-navbar {
     z-index: 999;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding-bottom: 0;
-    height: 100px;
+    height: 120px;
     align-items: center;
     box-shadow: 0 4px 6px -6px #EF233C;
     background-color: rgba(43, 45, 66, 0.3);
@@ -34,15 +34,13 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.2s ease;
 }
 
 .sm-nav-menu {
     display: flex;
-    margin-right: 30px;
     list-style-type: none;
     flex-direction: row;
-    justify-content: flex-end;
+    margin-right: 12rem;
 }
 
 .sm-nav-menu li {

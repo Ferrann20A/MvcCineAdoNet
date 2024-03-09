@@ -1,5 +1,5 @@
 ﻿.contenedor-principal {
-    min-height: calc(100vh - 100px - 403.2px);
+    min-height: calc(100vh - 120px - 403.2px);
 }
 
 @keyframes slideRight {

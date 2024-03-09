@@ -30,5 +30,11 @@ namespace MvcCineAdoNet.Controllers
             List<Pelicula> peliculasEncontradas = await this.repo.BuscadorPeliculasAsync(titulo);
             return View(peliculasEncontradas);
         }
+
+        public async Task<IActionResult> DetailsPelicula(int idpelicula)
+        {
+            Pelicula peli = await this.repo.FindPeliculaAsync(idpelicula);
+            return View(peli);
+        }
     }
 }
