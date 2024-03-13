@@ -1,5 +1,9 @@
 ﻿@model List<Pelicula>
 
+@{
+    Usuario user = Context.Session.GetObject<Usuario>("usuario");
+}
+
 <div class="container">
     <div class="buscador">
         <form method="post" class="buscador-form">
@@ -24,22 +28,13 @@
                             <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
                         </a>
                         <p class="pelicula-director">Director: @peli.Director</p>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            @foreach (Pelicula peli in Model)
-            {
-                <div class="pelicula-card">
-                    <img src="~/images/peliculas/@peli.Imagen" alt="@peli.Titulo" class="pelicula-imagen">
-                    <div class="pelicula-info">
-                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
-                            asp-route-idpelicula="@peli.IdPelicula">
-                            <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
-                        </a>
-                        <p class="pelicula-director">Director: @peli.Director</p>
+                        @if(user != null)
+                        {
+                            <a asp-controller="Peliculas" asp-action="BuscadorPeliculas"
+                               asp-route-idpelicula="@peli.IdPelicula" class="bnt-milista">
+                                <i class="fa-solid fa-plus"></i> Mi Lista
+                            </a>
+                        }
                     </div>
                 </div>
             }

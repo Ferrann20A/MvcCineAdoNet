@@ -1,5 +1,9 @@
 ﻿@model List<Serie>
 
+@{
+    Usuario user = Context.Session.GetObject<Usuario>("usuario");
+}
+
 <div class="container">
     <div class="buscador">
         <form method="post" class="buscador-form">
@@ -24,22 +28,13 @@
                             <h2 class="pelicula-titulo">@serie.Titulo ● @serie.AnioEstreno</h2>
                         </a>
                         <p class="serie-director">Director: @serie.Creador</p>
-                    </div>
-                </div>
-            }
-        }
-        else
-        {
-            @foreach (Serie serie in Model)
-            {
-                <div class="serie-card">
-                    <img src="~/images/series/@serie.Imagen" alt="@serie.Titulo" class="serie-imagen">
-                    <div class="serie-info">
-                        <a asp-controller="Series" asp-action="DetailsSerie"
-                           asp-route-idserie="@serie.IdSerie">
-                            <h2 class="pelicula-titulo">@serie.Titulo ● @serie.AnioEstreno</h2>
-                        </a>
-                        <p class="serie-director">Director: @serie.Creador</p>
+                        @if (user != null)
+                        {
+                            <a asp-controller="Series" asp-action="BuscadorSeries"
+                               asp-route-idserie="@serie.IdSerie" class="bnt-milista">
+                                <i class="fa-solid fa-plus"></i> Mi Lista
+                            </a>
+                        }
                     </div>
                 </div>
             }

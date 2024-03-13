@@ -1,6 +1,39 @@
-﻿<div class="container">
-    <h1>Mi lista</h1>
-    <p>
-        select * from pelicula where popularidad >= 95
-    </p>
+﻿@model ResumenMiListaPeliculasSeries
+
+<div class="container">
+    <h1 class="text-center mt-3 milista-titulo"><i class="fa-solid fa-rectangle-list" /> Mi Lista <i class="fa-solid fa-rectangle-list" /></h1>
+    <div class="container-milista">
+        @if (Model != null)
+        {
+            @foreach (ViewAllPelicula peli in Model.ViewAllPeliculas)
+            {
+                <div class="card-milista">
+                    <img src="~/images/peliculas/@peli.Imagen" alt="@peli.Titulo" class="imagen-milista">
+                    <div class="info-milista">
+                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
+                           asp-route-idpelicula="@peli.IdPelicula">
+                            <h2 class="titulo-milista">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        </a>
+                        <p class="director-milista">Director: @peli.Director</p>
+                    </div>
+                </div>
+            }
+        }
+        @if (Model != null)
+        {
+            @foreach (ViewAllSerie serie in Model.ViewAllSeries)
+            {
+                <div class="card-milista">
+                    <img src="~/images/series/@serie.Imagen" alt="@serie.Titulo" class="imagen-milista">
+                    <div class="info-milista">
+                        <a asp-controller="Series" asp-action="DetailsSerie"
+                           asp-route-idserie="@serie.IdSerie">
+                            <h2 class="titulo-milista">@serie.Titulo ● @serie.AnioEstreno</h2>
+                        </a>
+                        <p class="director-milista">Director: @serie.Creador</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>

@@ -1,84 +1,36 @@
-﻿@model MvcCineAdoNet.Models.Serie
+﻿@model ViewSerieCompleta
 
-@{
-    ViewData["Title"] = "DetailsSerie";
-}
-
-<h1>DetailsSerie</h1>
-
-<div>
-    <h4>Serie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdSerie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdSerie)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Creador)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Creador)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AnioEstreno)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AnioEstreno)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NumTemporadas)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumTemporadas)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Popularidad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Popularidad)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdGenero)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdGenero)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sinopsis)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sinopsis)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Trailer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trailer)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Imagen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Imagen)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IMDB)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IMDB)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="container">
+    <div class="details-serie">
+        <div class="info-serie">
+            <section class="serie-genero">
+                <h3 class="genero">GÉNERO</h3>
+                <p>@Model.Genero</p>
+            </section>
+            <section class="director-serie">
+                <h3 class="creador">DIRECTOR</h3>
+                <p>@Model.Creador</p>
+            </section>
+            <section class="stats">
+                <h3><i id="stat-icon" class="fa-solid fa-chart-line"></i> STATS</h3>
+                <p>IMDB: @Model.IMDB/10</p>
+                <p>Popularidad: @Model.Popularidad/100</p>
+            </section>
+        </div>
+        <div class="sinopsis-serie">
+            <section class="titulo-serie">
+                <h2 class="titulo">@Model.Titulo</h2>
+                <h3 class="duracion-anio">@Model.AnioEstreno ● @Model.NumTemporadas temporadas</h3>
+                <p class="sinopsis">@Model.Sinopsis</p>
+            </section>
+            <section class="trailer-serie">
+                <a href="@Model.Trailer" target="_blank" class="btn-trailer">
+                    <i id="play-icon" class="fa-solid fa-circle-play"></i>
+                </a>
+            </section>
+        </div>
+        <div class="img_serie">
+            <img src="~/images/series/@Model.Imagen" class="img-serie" alt="img_@Model.Imagen" />
+        </div>
+    </div>
 </div>

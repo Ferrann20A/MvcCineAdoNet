@@ -1,0 +1,64 @@
+﻿.container-milista {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.card-milista {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    background-color: transparent;
+    border-radius: 1rem;
+    transition: background-color .3s;
+}
+
+    .card-milista:hover {
+        background-color: #3a3d57;
+        cursor: pointer;
+    }
+
+        .card-milista:hover .imagen-milista {
+            opacity: 100%;
+            transform: scale(.95);
+        }
+
+.imagen-milista {
+    width: 15rem;
+    height: 20rem;
+    border-radius: 1rem;
+    opacity: 60%;
+    transition: opacity .3s;
+    transition: transform .5s;
+}
+
+.info-milista {
+    padding: 20px 0 20px 0;
+}
+
+.titulo-milista {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    transition: transform .5s;
+}
+
+.card-milista:hover .titulo-milista {
+    opacity: 100%;
+    transform: scale(.95);
+}
+
+.director-milista {
+    margin: 0;
+    color: #8D99AE;
+    transition: .5s;
+}
+
+.card-milista:hover .director-milista {
+    transform: scale(.95);
+    color: #EDF2F4;
+}

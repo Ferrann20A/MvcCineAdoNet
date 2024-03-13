@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MvcCineAdoNet.Extensions;
 using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
 
@@ -13,8 +14,13 @@ namespace MvcCineAdoNet.Controllers
             this.repo = repo;
         }
 
-        public async Task<IActionResult> BuscadorSeries()
+        public async Task<IActionResult> BuscadorSeries(int? idserie)
         {
+            if(idserie != null)
+            {
+                Usuario user = HttpContext.Session.GetObject<Usuario>("usuario");
+                await this.repo.InsertFavoritoSerieAsync(user.IdUsuario, idserie.Value);
+            }
             List<Serie> series = await this.repo.GetSeriesAsync();
             return View(series);
         }
@@ -28,7 +34,7 @@ namespace MvcCineAdoNet.Controllers
 
         public async Task<IActionResult> DetailsSerie(int idserie)
         {
-            Serie serie = await this.repo.FindSerieAsync(idserie);
+            ViewSerieCompleta serie = await this.repo.FindSerieCompletaAsync(idserie);
             return View(serie);
         }
     }

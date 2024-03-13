@@ -19,5 +19,7 @@ namespace MvcCineAdoNet.Models
         public byte[] Password { get; set; }
         [Column("salt")]
         public string Salt { get; set; }
+        [Column("contrasenia")]
+        public string Contrasenia { get; set; }
     }
 }

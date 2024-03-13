@@ -63,9 +63,40 @@ namespace MvcCineAdoNet.Controllers
             return View();
         }
 
-        public IActionResult MiListaUsuario()
+        public async Task<IActionResult> MiListaUsuario(int? ideliminar)
         {
+            //List<int> idspeliculas = HttpContext.Session.GetObject<List<int>>("idspeliculas");
+            //if(idspeliculas != null)
+            //{
+            //    if(ideliminar != null)
+            //    {
+            //        idspeliculas.Remove(ideliminar.Value);
+            //        if(idspeliculas.Count() == 0)
+            //        {
+            //            HttpContext.Session.Remove("idspeliculas");
+            //        }
+            //        else
+            //        {
+            //            HttpContext.Session.SetObject("idspeliculas", idspeliculas);
+            //        }
+            //    }
+            //    //List<Pelicula> peliculas = await this.repo.GetFavoritosPeliculaSessionAsync(idspeliculas);
+            //}
+            Usuario user = HttpContext.Session.GetObject<Usuario>("usuario");
+            if(user != null)
+            {
+
+            List<ViewAllPelicula> pelisFav = await this.repo.GetFavoritosPeliculaByUsuarioAsync(user.IdUsuario);
+            List<ViewAllSerie> seriesFav = await this.repo.GetFavoritosSerieByUsuarioAsync(user.IdUsuario);
+            ResumenMiListaPeliculasSeries resumen = new ResumenMiListaPeliculasSeries
+            {
+                ViewAllPeliculas = pelisFav,
+                ViewAllSeries = seriesFav
+            };
+            return View(resumen);
+            }
             return View();
+            //return View();
         }
     }
 }

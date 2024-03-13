@@ -1,0 +1,61 @@
+﻿.details-pelicula {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.info-pelicula{
+    display: flex;
+    flex-direction: column;
+}
+
+.info-pelicula section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.titulo-pelicula .titulo {
+    font-weight: bold;
+    margin: 1.5rem 1.5rem 1.5rem 0;
+}
+
+.titulo-pelicula .duracion-anio {
+    margin: 1.5rem 1.5rem 1.5rem 0;
+}
+
+.img-pelicula .img-peli {
+    width: 20rem;
+    border-radius: 1rem;
+}
+
+#play-icon {
+    font-size: 3rem;
+    color: #8D99AE;
+    cursor: pointer;
+    transition: .5s;
+}
+
+#play-icon:hover {
+    transform: scale(1.1);
+    color: #EDF2F4;
+}
+
+#stat-icon{
+    font-size: 1.3rem;
+}
+
+#plus-icon {
+    font-size: 3rem;
+    color: #8D99AE;
+    cursor: pointer;
+    transition: .5s;
+    margin-left: 1.3rem;
+}
+
+#plus-icon:hover{
+    transform: scale(1.1);
+    color: #EDF2F4;
+}
+
