@@ -56,5 +56,16 @@ namespace MvcCineAdoNet.Controllers
             ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idpelicula);
             return View(peli);
         }
+
+        public IActionResult CreatePelicula()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePelicula(Pelicula peli)
+        {
+            return View();
+        }
     }
 }

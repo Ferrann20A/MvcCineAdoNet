@@ -6,8 +6,33 @@ using MvcCineAdoNet.Helpers;
 using MvcCineAdoNet.Models;
 using MvcCoreCryptography.Helpers;
 using System.Diagnostics.Metrics;
+using System.IO;
 
 #region VIEWS Y PROCEDURES
+
+//ALTER procedure[dbo].[SP_INSERT_SERIE]
+//(@titulo nvarchar(100), @creador nvarchar(100),
+//@anioEstreno int, @numTemporadas int, @popularidad int,
+//@idGenero int, @sinopsis nvarchar(max), @trailer nvarchar(500),
+//@imagen nvarchar(255), @IMDB float)
+//as
+//	declare @nextId int
+//	select @nextId = max(idserie) + 1 from serie
+//	insert into pelicula values
+//	(@nextId, @titulo, @creador, @anioEstreno, @numTemporadas, @popularidad,
+//    @idGenero, @sinopsis, @trailer, @imagen, @IMDB);
+
+//ALTER procedure[dbo].[SP_INSERT_PELICULA]
+//(@titulo nvarchar(100), @director nvarchar(100),
+//@anioEstreno int, @duracion int, @popularidad int,
+//@idGenero int, @sinopsis nvarchar(max), @trailer nvarchar(500),
+//@imagen nvarchar(255), @IMDB float)
+//as
+//	declare @nextId int
+//	select @nextId = max(idpelicula) +1 from pelicula
+//	insert into pelicula values
+//	(@nextId, @titulo, @director, @anioEstreno, @duracion, @popularidad,
+//    @idGenero, @sinopsis, @trailer, @imagen, @IMDB);
 
 //create procedure SP_BUSCADOR_PELICULAS
 //(@titulo nvarchar(100))
@@ -308,6 +333,49 @@ namespace MvcCineAdoNet.Repositories
             var consulta = this.cineContext.ViewAllSeries.FromSqlRaw(sql, pamIdusuario);
             List<ViewAllSerie> seriesFav = await consulta.ToListAsync();
             return seriesFav;
+        }
+
+        public async Task InsertPeliculaAsync(string titulo, string director, int anioEstreno, int duracion, int popularidad, 
+            int idGenero, string sinopsis, string trailer, string imagen, double IMDB)
+        {
+            string sql = "SP_INSERT_PELICULA @titulo, @director, @anioEstreno, @duracion, @popularidad, @idGenero" +
+                ", @sinopsis, @trailer, @imagen, @IMDB";
+            SqlParameter pamTitulo = new SqlParameter("@titulo", titulo);
+            SqlParameter pamDirector = new SqlParameter("@director", director);
+            SqlParameter pamAnioEstreno = new SqlParameter("@anioEstreno", anioEstreno);
+            SqlParameter pamDuracion = new SqlParameter("@duracion", duracion);
+            SqlParameter pamPopularidad = new SqlParameter("@popularidad", popularidad);
+            SqlParameter pamIdGenero = new SqlParameter("@idGenero", idGenero);
+            SqlParameter pamSinopsis = new SqlParameter("@sinopsis", sinopsis);
+            SqlParameter pamTrailer = new SqlParameter("@trailer", trailer);
+            SqlParameter pamImagen = new SqlParameter("@imagen", imagen);
+            SqlParameter pamIMDB = new SqlParameter("@IMDB", IMDB);
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamTitulo, pamDirector, pamAnioEstreno, pamDuracion, pamPopularidad,
+                pamIdGenero, pamSinopsis, pamTrailer, pamImagen, pamIMDB);
+        }
+
+        public async Task InsertSerieAsync(string titulo, string creador, int anioEstreno, int numTemporadas, int popularidad, 
+            int idGenero, string sinopsis, string trailer, string imagen, double IMDB)
+        {
+            string sql = "SP_INSERT_SERIE @titulo, @creador, @anioEstreno, @numTemporadas, @popularidad, @idGenero" +
+                ", @sinopsis, @trailer, @imagen, @IMDB";
+            SqlParameter pamTitulo = new SqlParameter("@titulo", titulo);
+            SqlParameter pamDirector = new SqlParameter("@creador", creador);
+            SqlParameter pamAnioEstreno = new SqlParameter("@anioEstreno", anioEstreno);
+            SqlParameter pamDuracion = new SqlParameter("@numTemporadas", numTemporadas);
+            SqlParameter pamPopularidad = new SqlParameter("@popularidad", popularidad);
+            SqlParameter pamIdGenero = new SqlParameter("@idGenero", idGenero);
+            SqlParameter pamSinopsis = new SqlParameter("@sinopsis", sinopsis);
+            SqlParameter pamTrailer = new SqlParameter("@trailer", trailer);
+            SqlParameter pamImagen = new SqlParameter("@imagen", imagen);
+            SqlParameter pamIMDB = new SqlParameter("@IMDB", IMDB);
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamTitulo, pamDirector, pamAnioEstreno, pamDuracion, pamPopularidad,
+                pamIdGenero, pamSinopsis, pamTrailer, pamImagen, pamIMDB);
+        }
+
+        public async Task<List<Genero>> GetGenerosAsync()
+        {
+            return await this.cineContext.Generos.ToListAsync();
         }
     }
 }
