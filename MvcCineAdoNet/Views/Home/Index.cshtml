@@ -1,7 +1,43 @@
-﻿
+﻿@model ResumenHome
+
+@{
+    ViewPeliculaCompleta peli = Model.PeliculaRandom;
+    List<Pelicula> pelisPopus = Model.PeliculasPopulares;
+    List<Serie> seriesPopus = Model.SeriesPopulares;
+}
+
 <div class="container">
-    <h1 class="text-center">Home</h1>
-    <p>
-        El resto de la pagina home
-    </p>
+    <div class="horizontal-card-home">
+        <section class="pelicula-random"
+           style="background-image: url('images/peliculas_panoramica/@peli.Imagen.');">
+            <a asp-controller="Peliculas" asp-action="DetailsPelicula" asp-route-idpelicula="@peli.IdPelicula" id="link-pelicula-random">
+                <div class="info-pelicula-random">
+                    <h2 class="titulo-pelicula-random">@peli.Titulo</h2>
+                    <p class="sinpsis-pelicula-random">@peli.Sinopsis</p>
+                    <ul class="stats-pelicula-random">
+                        <li class="item-pelicula-random">
+                            @peli.AnioEstreno
+                        </li>
+                        <li class="item-pelicula-random">
+                            @peli.Genero
+                        </li>
+                        <li class="item-pelicula-random">
+                            @peli.Duracion mins
+                        </li>
+                    </ul>
+                </div>
+            </a>
+        </section>
+        <section class="animacion">
+            <h2>
+                Aqui irá una animacion
+            </h2>
+        </section>
+    </div>
+    <div class="peliculas-populares">
+        @foreach(Pelicula pp in pelisPopus)
+        {
+            <p>@pp.Titulo</p>
+        }
+    </div>
 </div>

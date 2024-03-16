@@ -1,17 +1,13 @@
 ﻿@{
-    Usuario user = Context.Session.GetObject<Usuario>("usuario");
+    var usuario = Context.User;
 }
+
 <div class="container">
     <ul>
         <li>
             <a asp-controller="Usuarios" asp-action="PerfilUsuario"
-                asp-route-idUsuario="@user.IdUsuario">
-                Perfil @user.IdUsuario, @user.Nombre
-            </a>
-        </li>
-        <li>
-            <a asp-controller="Usuarios" asp-action="PerfilUsuario" asp-route-idUsuario="@user.IdUsuario">
-                Perfil 2
+                asp-route-idUsuario="@usuario.FindFirst(ClaimTypes.NameIdentifier).Value">
+                Perfil @usuario.FindFirst(ClaimTypes.Name).Value
             </a>
         </li>
     </ul>

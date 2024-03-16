@@ -59,3 +59,27 @@
     color: #EDF2F4;
 }
 
+.reparto-actores{
+    display: flex;
+    /*align-items: center;
+    justify-content: center;*/
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-actor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-actor{
+    margin-bottom: 1rem;
+}
+
+#img-actor{
+    width: 10rem;
+    border-radius: 5rem
+}
+

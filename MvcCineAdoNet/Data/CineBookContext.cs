@@ -15,5 +15,7 @@ namespace MvcCineAdoNet.Data
         public DbSet<ViewPeliculaCompleta> PeliculasCompletas { get; set; }
         public DbSet<ViewSerieCompleta> SeriesCompletas { get; set; }
         public DbSet<Genero> Generos { get; set; }
+        public DbSet<ActoresPelicula> ActoresPeliculas { get; set; }
+        public DbSet<ActoresSerie> ActoresSeries { get; set; }
     }
 }

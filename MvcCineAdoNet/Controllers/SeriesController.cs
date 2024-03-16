@@ -35,6 +35,8 @@ namespace MvcCineAdoNet.Controllers
         public async Task<IActionResult> DetailsSerie(int idserie)
         {
             ViewSerieCompleta serie = await this.repo.FindSerieCompletaAsync(idserie);
+            List<ActoresSerie> actoresSerie = await this.repo.GetActoresBySerieAsync(idserie);
+            ViewData["actoresSerie"] = actoresSerie;
             return View(serie);
         }
     }

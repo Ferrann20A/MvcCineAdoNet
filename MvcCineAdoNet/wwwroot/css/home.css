@@ -1,0 +1,54 @@
+﻿.horizontal-card-home{
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+#link-pelicula-random {
+    text-decoration: none;
+    color: #EDF2F4;
+}
+
+.pelicula-random {
+    height: 25rem;
+    border-radius: 2rem;
+    background-size: cover;
+    background-position: center;
+    flex: 2;
+    padding: 2rem;
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end;
+}
+
+.info-pelicula-random {
+    width: fit-content;
+    z-index: 1;
+    padding: 2rem;
+    z-index: -1;
+    background-color: rgba(43, 45, 66, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 2rem;
+}
+
+.stats-pelicula-random{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.stats-pelicula-random .item-pelicula-random{
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.animacion {
+    flex: 1;
+    border: 2px solid red;
+}
+
+.peliculas-populares{
+    margin-top: 3rem;
+}

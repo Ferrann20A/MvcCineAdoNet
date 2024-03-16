@@ -7,6 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/home.css" rel="stylesheet" />
         <link href="~/css/navbar.css" rel="stylesheet" />
         <link href="~/css/footer.css" rel="stylesheet" />
         <link href="~/css/buscadorPeliculas.css" rel="stylesheet" />
@@ -18,15 +19,15 @@
         <title>Cine Book</title>
     </head>
     <body>
-    @if(user == null)
+    @if(Context.User.Identity.IsAuthenticated == false)
     {
         <partial name="_LoginUserNull" />
     }
-    @if (user != null && user.Rol == "usuario")
+    @if (Context.User.Identity.IsAuthenticated == true && Context.User.FindFirst(ClaimTypes.Role).Value == "usuario")
     {
         <partial name="_LoginUserUsuario" />
     }
-    @if (user != null && user.Rol == "admin")
+    @if (Context.User.Identity.IsAuthenticated == true && Context.User.FindFirst(ClaimTypes.Role).Value == "admin")
     {
         <partial name="_LoginUserAdmin" />
     }

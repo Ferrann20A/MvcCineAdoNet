@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvcCineAdoNet.Extensions;
+using MvcCineAdoNet.Filters;
 using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
 
@@ -51,21 +52,13 @@ namespace MvcCineAdoNet.Controllers
             }
         }
 
+        [AuthorizeUsuarios]
         public async Task<IActionResult> DetailsPelicula(int idpelicula)
         {
             ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idpelicula);
+            List<ActoresPelicula> actoresPeli = await this.repo.GetActoresByPeliculaAsync(idpelicula);
+            ViewData["actoresPeli"] = actoresPeli;
             return View(peli);
-        }
-
-        public IActionResult CreatePelicula()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreatePelicula(Pelicula peli)
-        {
-            return View();
         }
     }
 }

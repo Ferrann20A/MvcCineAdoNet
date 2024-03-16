@@ -152,6 +152,35 @@ using System.IO;
 //	WHERE PP.idPelicula = @idpelicula;
 //go
 
+//alter view V_ACTORES_PELICULA
+//as
+//	SELECT pp.idPelicula, A.nombre AS nombre_actor, pp.nombre as nombre_personaje, pp.imagen as imagen_personaje
+//	FROM Actor A
+//	JOIN Personajes_Pelicula PP ON A.idActor = PP.idActor;
+//go
+
+//create procedure SP_ACTORES_PELICULA
+//(@idpelicula int)
+//as
+//	select * from V_ACTORES_PELICULA
+//	where idpelicula = @idpelicula
+//go
+
+
+//create view V_ACTORES_SERIE
+//as
+//	SELECT ps.idSerie, A.nombre AS nombre_actor, ps.nombre as nombre_personaje, ps.imagen as imagen_personaje
+//	FROM Actor A
+//	JOIN Personajes_Serie PS ON A.idActor = PS.idActor;
+//go
+
+//create procedure SP_ACTORES_SERIE
+//(@idserie int)
+//as
+//	select * from V_ACTORES_SERIE
+//	where idserie = @idserie
+//go
+
 #endregion
 
 namespace MvcCineAdoNet.Repositories
@@ -376,6 +405,53 @@ namespace MvcCineAdoNet.Repositories
         public async Task<List<Genero>> GetGenerosAsync()
         {
             return await this.cineContext.Generos.ToListAsync();
+        }
+
+        public async Task<List<ActoresPelicula>> GetActoresByPeliculaAsync(int idpelicula)
+        {
+            string sql = "SP_ACTORES_PELICULA @idpelicula";
+            SqlParameter pamId = new SqlParameter("@idpelicula", idpelicula);
+            var consulta = this.cineContext.ActoresPeliculas.FromSqlRaw(sql, pamId);
+            List<ActoresPelicula> actoresPeli = await consulta.ToListAsync();
+            return actoresPeli;
+        }
+
+        public async Task<List<ActoresSerie>> GetActoresBySerieAsync(int idserie)
+        {
+            string sql = "SP_ACTORES_SERIE @idserie";
+            SqlParameter pamId = new SqlParameter("@idserie", idserie);
+            var consulta = this.cineContext.ActoresSeries.FromSqlRaw(sql, pamId);
+            List<ActoresSerie> actoresSerie = await consulta.ToListAsync();
+            return actoresSerie;
+        }
+
+        public async Task<List<Pelicula>> GetPeliculasPopularesAsync()
+        {
+            var consulta = from datos in this.cineContext.Peliculas
+                           where datos.Popularidad >= 94
+                           select datos;
+            List<Pelicula> pelisPopus = await consulta.ToListAsync();
+            return pelisPopus;
+        }
+
+        public async Task<List<Serie>> GetSeriesPopularesAsync()
+        {
+            var consulta = from datos in this.cineContext.Series
+                           where datos.Popularidad >= 94
+                           select datos;
+            List<Serie> serisPopus = await consulta.ToListAsync();
+            return serisPopus;
+        }
+
+        public int GetMaxIdPelicula()
+        {
+            return this.cineContext.Peliculas.Max(z => z.IdPelicula);
+        }
+
+
+        public async Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula)
+        {
+            return await this.cineContext.PeliculasCompletas.FirstOrDefaultAsync(x => x.IdPelicula == idpelicula);
         }
     }
 }

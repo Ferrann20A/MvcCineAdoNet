@@ -27,5 +27,11 @@ namespace MvcCineAdoNet.Repositories
         Task InsertSerieAsync(string titulo, string creador, int anioEstreno, int numTemporadas, int popularidad,
                                    int idGenero, string sinopsis, string trailer, string imagen, double IMDB);
         Task<List<Genero>> GetGenerosAsync();
+        Task<List<ActoresPelicula>> GetActoresByPeliculaAsync(int idpelicula);
+        Task<List<ActoresSerie>> GetActoresBySerieAsync(int idserie);
+        Task<List<Pelicula>> GetPeliculasPopularesAsync();
+        Task<List<Serie>> GetSeriesPopularesAsync();
+        int GetMaxIdPelicula();
+        Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula);
     }
 }

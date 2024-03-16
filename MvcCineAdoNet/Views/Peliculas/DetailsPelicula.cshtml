@@ -2,6 +2,7 @@
 
 @{
     Usuario user = Context.Session.GetObject<Usuario>("usuario");
+    List<ActoresPelicula> actoresPeli = ViewData["actoresPeli"] as List<ActoresPelicula>;
 }
 
 <div class="container">
@@ -44,4 +45,21 @@
             <img src="~/images/peliculas/@Model.Imagen" class="img-peli" alt="img_@Model.Imagen" />
         </div>
     </div>
+    @if(actoresPeli != null)
+    { 
+        <div class="reparto-actores">
+            @foreach(ActoresPelicula ap in actoresPeli)
+            {
+                <div class="card-actor">
+                    <section class="img-actor">
+                        <img id="img-actor" src="~/images/actores/@ap.Imagen" alt="img_actor" />
+                    </section>
+                    <section class="info-actor">
+                        <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                        <p class="nombre-personaje">@ap.NombrePersonaje</p>
+                    </section>
+                </div>
+            }
+        </div>
+    }
 </div>
