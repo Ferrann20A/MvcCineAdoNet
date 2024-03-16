@@ -52,7 +52,7 @@ namespace MvcCineAdoNet.Controllers
             }
         }
 
-        [AuthorizeUsuarios]
+        
         public async Task<IActionResult> DetailsPelicula(int idpelicula)
         {
             ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idpelicula);

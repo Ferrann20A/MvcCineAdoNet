@@ -57,7 +57,7 @@
     overflow: hidden;
     white-space: nowrap;
     border-right: .08em solid #EF233C; /* Simula el cursor de escritura */
-    animation: escribir 3.5s steps(40, end) forwards;
+    animation: escribir 2.3s steps(40, end) forwards;
 }
 
 @keyframes escribir {

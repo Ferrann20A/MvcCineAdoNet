@@ -448,7 +448,6 @@ namespace MvcCineAdoNet.Repositories
             return this.cineContext.Peliculas.Max(z => z.IdPelicula);
         }
 
-
         public async Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula)
         {
             return await this.cineContext.PeliculasCompletas.FirstOrDefaultAsync(x => x.IdPelicula == idpelicula);

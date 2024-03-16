@@ -32,13 +32,6 @@
                 <a href="@Model.Trailer" target="_blank" class="btn-trailer">
                     <i id="play-icon" class="fa-solid fa-circle-play"></i>
                 </a>
-                @* @if (user != null)
-                {
-                    <a asp-controller="Peliculas" asp-action="AddFavorito"
-                       asp-route-idfavorito="@Model.IdPelicula" class="bnt-milista">
-                        <i id="plus-icon" class="fa-solid fa-circle-plus"></i>
-                    </a>
-                } *@
             </section>
         </div>
         <div class="img-pelicula">
@@ -46,7 +39,8 @@
         </div>
     </div>
     @if(actoresPeli != null)
-    { 
+    {
+        <h2 class="mb-4">Reparto</h2>
         <div class="reparto-actores">
             @foreach(ActoresPelicula ap in actoresPeli)
             {
@@ -55,7 +49,9 @@
                         <img id="img-actor" src="~/images/actores/@ap.Imagen" alt="img_actor" />
                     </section>
                     <section class="info-actor">
-                        <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                        <a id="linkwiki" href="https://es.wikipedia.org/wiki/@ap.NombreActor" target="_blank">
+                            <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                        </a>
                         <p class="nombre-personaje">@ap.NombrePersonaje</p>
                     </section>
                 </div>

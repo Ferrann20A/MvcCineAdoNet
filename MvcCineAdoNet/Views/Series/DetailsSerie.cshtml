@@ -39,6 +39,7 @@
     </div>
     @if(actoresSeries != null)
     {
+        <h2 class="mb-4">Reparto</h2>
         <div class="reparto-actores">
             @foreach (ActoresSerie ap in actoresSeries)
             {
@@ -47,7 +48,9 @@
                         <img id="img-actor" src="~/images/actores/@ap.Imagen" alt="img_actor" />
                     </section>
                     <section class="info-actor">
-                        <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                        <a id="linkwiki" href="https://es.wikipedia.org/wiki/@ap.NombreActor" target="_blank">
+                            <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                        </a>
                         <p class="nombre-personaje">@ap.NombrePersonaje</p>
                     </section>
                 </div>

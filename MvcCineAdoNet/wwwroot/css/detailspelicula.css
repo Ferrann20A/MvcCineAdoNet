@@ -64,7 +64,7 @@
     /*align-items: center;
     justify-content: center;*/
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 3rem;
 }
 
 .card-actor{
@@ -78,8 +78,14 @@
     margin-bottom: 1rem;
 }
 
-#img-actor{
+#img-actor {
     width: 10rem;
-    border-radius: 5rem
+    height: 15rem;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+#linkwiki {
+    color: #EDF2F4;
 }
 
