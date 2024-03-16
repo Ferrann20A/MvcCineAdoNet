@@ -436,9 +436,9 @@ namespace MvcCineAdoNet.Repositories
 
         public async Task<List<Serie>> GetSeriesPopularesAsync()
         {
-            var consulta = from datos in this.cineContext.Series
+            var consulta = (from datos in this.cineContext.Series
                            where datos.Popularidad >= 94
-                           select datos;
+                           select datos).Take(6);
             List<Serie> serisPopus = await consulta.ToListAsync();
             return serisPopus;
         }

@@ -1,12 +1,13 @@
 ﻿.horizontal-card-home{
     display: flex;
     gap: 1rem;
-    margin-top: 3rem;
+    margin: 3rem 0 3rem 0;
 }
 
 #link-pelicula-random {
     text-decoration: none;
     color: #EDF2F4;
+    width: fit-content;
 }
 
 .pelicula-random {
@@ -46,9 +47,127 @@
 
 .animacion {
     flex: 1;
-    border: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#fraseAnimada {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .08em solid #EF233C; /* Simula el cursor de escritura */
+    animation: escribir 3.5s steps(40, end) forwards;
+}
+
+@keyframes escribir {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.series-populares{
+    margin: 3rem 0 3rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5rem;
+    row-gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.card-serie-popular{
+    transition: .5s;
+}
+
+    .card-serie-popular:hover {
+        transform: scale(1.05);
+    }
+
+.img-serie-popular img{
+    width: 18rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 1rem;
 }
 
 .peliculas-populares{
     margin-top: 3rem;
 }
+
+.titulo-serie-popular{
+    margin-top: .7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.titulo-serie-popular .titulo .link-serie-popu {
+    color: #EDF2F4;
+}
+
+.titulo-serie-popular .titulo .link-serie-popu:hover {
+    color: #8D99AE;
+    transition: .1s;
+}
+
+#star{
+    width: 1rem;
+    height: 1rem;
+}
+
+/*----------------------------------------------*/
+
+.peliculas-populares {
+    margin: 3rem 0 3rem 0;
+    display: flex;
+    flex-direction: row;
+    gap: 3.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .peliculas-populares::-webkit-scrollbar {
+        width: 12px; /* Ancho de la barra de desplazamiento */
+        height: 12px; /* Altura de la barra de desplazamiento */
+    }
+
+    /* Estilos para el agarre de la barra de desplazamiento en navegadores webkit */
+    .peliculas-populares::-webkit-scrollbar-thumb {
+        background-color: #888; /* Color del agarre */
+        border-radius: 6px; /* Borde redondeado */
+    }
+
+.card-pelicula-popular {
+    transition: .5s;
+}
+
+.img-pelicula-popular img {
+    width: 18rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.titulo-pelicula-popular {
+    margin-top: .7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titulo-pelicula-popular .titulo .link-pelicula-popu {
+    color: #EDF2F4;
+    transition: .1s;
+}
+
+.titulo-pelicula-popular .titulo .link-pelicula-popu:hover {
+    color: #8D99AE;
+}
+

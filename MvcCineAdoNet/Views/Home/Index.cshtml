@@ -6,10 +6,33 @@
     List<Serie> seriesPopus = Model.SeriesPopulares;
 }
 
+@section scripts{
+    <script>
+        const contenedor = document.getElementById('peliculaspopulares');
+
+        contenedor.addEventListener('wheel', function (event) {
+            if (event.deltaY !== 0) {
+                event.preventDefault();
+                const scrollStep = 100;
+                this.scrollBy({
+                    left: event.deltaY < 0 ? -scrollStep : scrollStep,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        const fraseAnimada = document.getElementById('fraseAnimada');
+
+        fraseAnimada.addEventListener('animationend', () => {
+            fraseAnimada.style.borderRight = 'none';
+        });
+    </script>
+}
+
 <div class="container">
     <div class="horizontal-card-home">
         <section class="pelicula-random"
-           style="background-image: url('images/peliculas_panoramica/@peli.Imagen.');">
+           style="background-image: url('images/peliculas_panoramica/@peli.Imagen');">
             <a asp-controller="Peliculas" asp-action="DetailsPelicula" asp-route-idpelicula="@peli.IdPelicula" id="link-pelicula-random">
                 <div class="info-pelicula-random">
                     <h2 class="titulo-pelicula-random">@peli.Titulo</h2>
@@ -29,15 +52,57 @@
             </a>
         </section>
         <section class="animacion">
-            <h2>
-                Aqui irá una animacion
-            </h2>
+            <h1 id="fraseAnimada">
+                ¡¡Vive las películas <br /> y las series <br /> como nunca <br /> antes!!<span>&#160;</span>
+            </h1>
         </section>
     </div>
-    <div class="peliculas-populares">
+    <h2>Series más populares</h2>
+    <div class="series-populares">
+        @foreach(Serie sp in seriesPopus)
+        {
+            <div class="card-serie-popular">
+                <section class="img-serie-popular">
+                    <img src="~/images/series_panoramica/@sp.Imagen" alt="img_serie_popu" />
+                </section>
+                <section class="titulo-serie-popular">
+                    <h4 class="titulo">
+                        <a asp-controller="Series" asp-action="DetailsSerie"
+                            asp-route-idserie="@sp.IdSerie" class="link-serie-popu">
+                            @sp.Titulo
+                        </a>
+                    </h4>
+                    <section class="d-flex align-items-center gap-2">
+                        <small class="anio-estreno">@sp.AnioEstreno</small>
+                        <img id="star" src="~/svg/star-svg.svg" alt="star-svg" />
+                        <small class="imdb">@sp.IMDB</small>
+                    </section>
+                </section>
+            </div>
+        }
+    </div>
+    <h2>Películas más populares</h2>
+    <div class="peliculas-populares" id="peliculaspopulares">
         @foreach(Pelicula pp in pelisPopus)
         {
-            <p>@pp.Titulo</p>
+            <div class="card-pelicula-popular">
+                <section class="img-pelicula-popular">
+                    <img src="~/images/peliculas_panoramica/@pp.Imagen" alt="img_pelicula_popu" />
+                </section>
+                <section class="titulo-pelicula-popular">
+                    <h4 class="titulo">
+                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
+                           asp-route-idserie="@pp.IdPelicula" class="link-pelicula-popu">
+                            @pp.Titulo
+                        </a>
+                    </h4>
+                    <section class="d-flex align-items-center gap-2">
+                        <small class="anio-estreno">@pp.AnioEstreno</small>
+                        <img id="star" src="~/svg/star-svg.svg" alt="star-svg" />
+                        <small class="imdb">@pp.IMDB</small>
+                    </section>
+                </section>
+            </div>
         }
     </div>
 </div>
