@@ -61,8 +61,6 @@
 
 .reparto-actores{
     display: flex;
-    /*align-items: center;
-    justify-content: center;*/
     flex-wrap: wrap;
     gap: 3rem;
 }
@@ -89,3 +87,70 @@
     color: #EDF2F4;
 }
 
+.reparto-comentarios{
+    margin-top: 2rem;
+}
+
+.comentarios-pelicula {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.comentario-peli {
+    border: 1px solid #8D99AE;
+    padding: 10px;
+}
+
+    
+    .comentario-peli:first-child {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    
+    .comentario-peli:last-child {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+.header-comentario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; 
+}
+
+    .header-comentario i {
+        margin-right: 5px;
+    }
+
+    .header-comentario span{
+        margin-right: 1rem;
+    }
+
+.texto-comentario {
+    margin-left: 20px;
+}
+
+.header-comentario:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header-comentario:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.btn-create-comentario {
+    color: #8D99AE;
+    transition: .3s;
+    border: 2px solid #8D99AE;
+    padding: .5rem;
+}
+
+    .btn-create-comentario:hover {
+        color: #EDF2F4;
+        border: 2px solid #EDF2F4;
+        border-radius: 10px;
+    }

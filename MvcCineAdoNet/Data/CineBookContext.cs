@@ -17,5 +17,7 @@ namespace MvcCineAdoNet.Data
         public DbSet<Genero> Generos { get; set; }
         public DbSet<ActoresPelicula> ActoresPeliculas { get; set; }
         public DbSet<ActoresSerie> ActoresSeries { get; set; }
+        public DbSet<ComentarioPelicula> ComentariosPelicula { get; set; }
+        public DbSet<ComentarioSerie> ComentariosSerie { get; set; }
     }
 }

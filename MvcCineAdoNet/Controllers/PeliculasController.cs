@@ -3,6 +3,8 @@ using MvcCineAdoNet.Extensions;
 using MvcCineAdoNet.Filters;
 using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
+using System.Globalization;
+using System.Security.Claims;
 
 namespace MvcCineAdoNet.Controllers
 {
@@ -57,8 +59,38 @@ namespace MvcCineAdoNet.Controllers
         {
             ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idpelicula);
             List<ActoresPelicula> actoresPeli = await this.repo.GetActoresByPeliculaAsync(idpelicula);
-            ViewData["actoresPeli"] = actoresPeli;
-            return View(peli);
+            List<ComentarioPelicula> comentarios = await this.repo.GetComentariosPeliculaAsync(idpelicula);
+            ResumenDetailsPelicula resumen = new ResumenDetailsPelicula
+            {
+                PeliculaCompleta = peli,
+                ActoresPelicula = actoresPeli,
+                ComentariosPelicula = comentarios
+            };
+            return View(resumen);
+        }
+
+        [AuthorizeUsuarios]
+        public async Task<IActionResult> CreateComentario(int idpelicula)
+        {
+            ViewData["idpelicula"] = idpelicula;
+            return View();
+        }
+
+        [AuthorizeUsuarios]
+        [HttpPost]
+        public async Task<IActionResult> CreateComentario(string comentario, int idpelicula)
+        {
+            if(comentario == null)
+            {
+                ViewData["mensaje"] = "Debes introducir un comentario";
+                return View();
+            }
+            int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            DateTime fechaActual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
+            await this.repo.InsertComentarioPeliculaAsync(idusuario, idpelicula, fechaActual, comentario);
+            ViewData["mensaje"] = "Nuevo comentario introducido con éxito!!";
+            return View();
+            //return RedirectToAction("DetailsPelicula");
         }
     }
 }

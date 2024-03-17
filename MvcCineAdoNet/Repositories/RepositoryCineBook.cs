@@ -181,6 +181,52 @@ using System.IO;
 //	where idserie = @idserie
 //go
 
+//create view V_COMENTARIOS_PELICULA
+//AS
+//	SELECT CP.idComentario, CP.idPelicula, U.nombre AS Usuario, CP.fechaComentario, CP.comentario
+//	FROM Comentario_Pelicula CP
+//	JOIN Usuario U ON CP.idUsuario = U.idUsuario
+//GO
+
+//create procedure SP_COMENTARIOS_PELICULA
+//(@idpelicula int)
+//as
+//	select * from V_COMENTARIOS_PELICULA
+//	where idpelicula = @idpelicula
+//go
+
+//create view V_COMENTARIOS_SERIE
+//AS
+//	SELECT CS.idComentario, CS.idSerie, U.nombre AS Usuario, CS.fechaComentario, CS.comentario
+//	FROM Comentario_Serie CS
+//	JOIN Usuario U ON CS.idUsuario = U.idUsuario
+//GO
+
+//create procedure SP_COMENTARIOS_SERIE
+//(@idserie int)
+//as
+//	select * from V_COMENTARIOS_SERIE
+//	where idserie = @idserie
+//go
+
+//create procedure SP_INSERT_COMENTARIO_PELICULA
+//(@idusuario int, @idpelicula int,
+//@fechaComentario datetime, @comentario nvarchar(max))
+//as
+//	declare @nextId int
+//	select @nextId = max(idcomentario) + 1 from Comentario_Pelicula
+//	insert into Comentario_Pelicula values(@nextId, @idusuario, @idpelicula, @fechaComentario, @comentario);
+//go
+
+//create procedure SP_INSERT_COMENTARIO_SERIE
+//(@idusuario int, @idserie int,
+//@fechaComentario datetime, @comentario nvarchar(max))
+//as
+//	declare @nextId int
+//	select @nextId = max(idcomentario) + 1 from Comentario_Serie
+//	insert into Comentario_Serie values(@nextId, @idusuario, @idserie, @fechaComentario, @comentario);
+//go
+
 #endregion
 
 namespace MvcCineAdoNet.Repositories
@@ -451,6 +497,50 @@ namespace MvcCineAdoNet.Repositories
         public async Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula)
         {
             return await this.cineContext.PeliculasCompletas.FirstOrDefaultAsync(x => x.IdPelicula == idpelicula);
+        }
+
+        //METODO PARA HACER UN FILTER POR GENERO
+        public Task<Pelicula> GetPeliculasByGenero(int idgenero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<ComentarioPelicula>> GetComentariosPeliculaAsync(int idpelicula)
+        {
+            string sql = "SP_COMENTARIOS_PELICULA @idpelicula";
+            SqlParameter pamId = new SqlParameter("@idpelicula", idpelicula);
+            var consulta = this.cineContext.ComentariosPelicula.FromSqlRaw(sql, pamId);
+            List<ComentarioPelicula> comentarios = await consulta.ToListAsync();
+            return comentarios;
+        }
+
+        public async Task<List<ComentarioSerie>> GetComentariosSerieAsync(int idserie)
+        {
+            string sql = "SP_COMENTARIOS_SERIE @idserie";
+            SqlParameter pamId = new SqlParameter("@idserie", idserie);
+            var consulta = this.cineContext.ComentariosSerie.FromSqlRaw(sql, pamId);
+            List<ComentarioSerie> comentarios = await consulta.ToListAsync();
+            return comentarios;
+        }
+
+        public async Task InsertComentarioPeliculaAsync(int idusuario, int idpelicula, DateTime fechaComentario, string comentario)
+        {
+            string sql = "SP_INSERT_COMENTARIO_PELICULA @idusuario, @idpelicula, @fechaComentario, @comentario";
+            SqlParameter pamIdUsuario = new SqlParameter("@idusuario", idusuario);
+            SqlParameter pamIdPelicula = new SqlParameter("@idpelicula", idpelicula);
+            SqlParameter pamFechaComentario = new SqlParameter("@fechaComentario", fechaComentario);
+            SqlParameter pamComentario = new SqlParameter("@comentario", comentario);
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamIdUsuario, pamIdPelicula, pamFechaComentario, pamComentario);
+        }
+
+        public async Task InsertComentarioSerieAsync(int idusuario, int idserie, DateTime fechaComentario, string comentario)
+        {
+            string sql = "SP_INSERT_COMENTARIO_SERIE @idusuario, @idserie, @fechaComentario, @comentario";
+            SqlParameter pamIdUsuario = new SqlParameter("@idusuario", idusuario);
+            SqlParameter pamIdSerie = new SqlParameter("@idserie", idserie);
+            SqlParameter pamFechaComentario = new SqlParameter("@fechaComentario", fechaComentario);
+            SqlParameter pamComentario = new SqlParameter("@comentario", comentario);
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamIdUsuario, pamIdSerie, pamFechaComentario, pamComentario);
         }
     }
 }

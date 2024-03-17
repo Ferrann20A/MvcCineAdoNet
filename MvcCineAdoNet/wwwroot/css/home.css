@@ -1,4 +1,13 @@
-﻿.horizontal-card-home{
+﻿.img-banner {
+    width: 100%;
+}
+
+    .img-banner img {
+        width: 100%;
+        height: auto; /* Para mantener la proporción de aspecto de la imagen */
+    }
+
+.horizontal-card-home{
     display: flex;
     gap: 1rem;
     margin: 3rem 0 3rem 0;
@@ -57,7 +66,7 @@
     overflow: hidden;
     white-space: nowrap;
     border-right: .08em solid #EF233C; /* Simula el cursor de escritura */
-    animation: escribir 2.3s steps(40, end) forwards;
+    animation: escribir 5s steps(40, end) forwards;
 }
 
 @keyframes escribir {

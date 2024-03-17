@@ -1,0 +1,15 @@
+﻿
+<div class="container mt-4">
+    <h1>Nuevo comentario Serie <i class="fa-regular fa-message"></i></h1>
+    <form method="post" class="form-container-comentario">
+        <div class="form-comentario">
+            <input type="hidden" name="idserie" value="@ViewData["idserie"]" />
+            <textarea id="comentario" name="comentario" placeholder="Deja aquí tu comentario..."
+                class="form-caja-comentario" rows="5" required></textarea>
+        </div>
+        <button class="btn-form-enviar">
+            Enviar
+        </button>
+    </form>
+    <h2>@ViewData["mensaje"]</h2>
+</div>

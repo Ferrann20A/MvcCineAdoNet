@@ -1,8 +1,9 @@
-﻿@model ViewPeliculaCompleta
+﻿@model ResumenDetailsPelicula
 
 @{
-    Usuario user = Context.Session.GetObject<Usuario>("usuario");
-    List<ActoresPelicula> actoresPeli = ViewData["actoresPeli"] as List<ActoresPelicula>;
+    ViewPeliculaCompleta peli = Model.PeliculaCompleta;
+    List<ActoresPelicula> actoresPeli = Model.ActoresPelicula;
+    List<ComentarioPelicula> comentarios = Model.ComentariosPelicula;
 }
 
 <div class="container">
@@ -10,52 +11,82 @@
         <div class="info-pelicula">
             <section class="pelicula-genero">
                 <h3 class="genero">GÉNERO</h3>
-                <p>@Model.Genero</p>
+                <p>@peli.Genero</p>
             </section>
             <section class="director-pelicula">
                 <h3 class="director">DIRECTOR</h3>
-                <p>@Model.Director</p>
+                <p>@peli.Director</p>
             </section>
             <section class="stats">
                 <h3><i id="stat-icon" class="fa-solid fa-chart-line"></i> STATS</h3>
-                <p>IMDB: @Model.IMDB/10</p>
-                <p>Popularidad: @Model.Popularidad/100</p>
+                <p>IMDB: @peli.IMDB/10</p>
+                <p>Popularidad: @peli.Popularidad/100</p>
             </section>
         </div>
         <div class="sinopsis-pelicula">
             <section class="titulo-pelicula">
-                <h2 class="titulo">@Model.Titulo</h2>
-                <h3 class="duracion-anio">@Model.Duracion mins ● @Model.AnioEstreno</h3>
-                <p class="sinopsis">@Model.Sinopsis</p>
+                <h2 class="titulo">@peli.Titulo</h2>
+                <h3 class="duracion-anio">@peli.Duracion mins ● @peli.AnioEstreno</h3>
+                <p class="sinopsis">@peli.Sinopsis</p>
             </section>
             <section class="trailer-pelicula">
-                <a href="@Model.Trailer" target="_blank" class="btn-trailer">
+                <a href="@peli.Trailer" target="_blank" class="btn-trailer">
                     <i id="play-icon" class="fa-solid fa-circle-play"></i>
                 </a>
             </section>
         </div>
         <div class="img-pelicula">
-            <img src="~/images/peliculas/@Model.Imagen" class="img-peli" alt="img_@Model.Imagen" />
+            <img src="~/images/peliculas/@peli.Imagen" class="img-peli" alt="img_@peli.Imagen" />
         </div>
     </div>
-    @if(actoresPeli != null)
-    {
-        <h2 class="mb-4">Reparto</h2>
-        <div class="reparto-actores">
-            @foreach(ActoresPelicula ap in actoresPeli)
-            {
-                <div class="card-actor">
-                    <section class="img-actor">
-                        <img id="img-actor" src="~/images/actores/@ap.Imagen" alt="img_actor" />
-                    </section>
-                    <section class="info-actor">
-                        <a id="linkwiki" href="https://es.wikipedia.org/wiki/@ap.NombreActor" target="_blank">
-                            <p class="nombre-actor"><b>@ap.NombreActor</b></p>
-                        </a>
-                        <p class="nombre-personaje">@ap.NombrePersonaje</p>
-                    </section>
-                </div>
-            }
-        </div>
-    }
+    <div class="reparto-comentarios">
+        @if(comentarios != null)
+        {
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Comentarios</h2>
+                @if(Context.User.Identity.IsAuthenticated == true)
+                {
+                    <a asp-controller="Peliculas" asp-action="CreateComentario"
+                       asp-route-idpelicula="@peli.IdPelicula" class="btn-create-comentario">
+                        <i class="fa-solid fa-square-plus"></i> Dejar comentario
+                    </a>
+                }
+            </div>
+            <div class="comentarios-pelicula">
+                @foreach(ComentarioPelicula com in comentarios)
+                {
+                    <div class="comentario-peli">
+                        <section class="header-comentario">
+                            <i class="fa-solid fa-comment"></i>
+                            <span>@com.Usuario</span>
+                            <span>@com.FechaComentario.ToString("dd/MM/yyyy - HH:mm") h</span>
+                        </section>
+                        <section class="texto-comentario">
+                            <p id="comentario">@com.Comentario</p>
+                        </section>
+                    </div>
+                }
+            </div>
+        }
+        @if(actoresPeli != null)
+        {
+            <h2 class="mb-4">Reparto Actores</h2>
+            <div class="reparto-actores">
+                @foreach(ActoresPelicula ap in actoresPeli)
+                {
+                    <div class="card-actor">
+                        <section class="img-actor">
+                            <img id="img-actor" src="~/images/actores/@ap.Imagen" alt="img_actor" />
+                        </section>
+                        <section class="info-actor">
+                            <a id="linkwiki" href="https://es.wikipedia.org/wiki/@ap.NombreActor" target="_blank">
+                                <p class="nombre-actor"><b>@ap.NombreActor</b></p>
+                            </a>
+                            <p class="nombre-personaje">@ap.NombrePersonaje</p>
+                        </section>
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>

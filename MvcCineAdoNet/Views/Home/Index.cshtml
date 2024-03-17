@@ -29,6 +29,9 @@
     </script>
 }
 
+<div class="img-banner">
+    <img src="~/images/logo/cinebook_banner.png" alt="img-banner" id="banner" />
+</div>
 <div class="container">
     <div class="horizontal-card-home">
         <section class="pelicula-random"
@@ -92,7 +95,7 @@
                 <section class="titulo-pelicula-popular">
                     <h4 class="titulo">
                         <a asp-controller="Peliculas" asp-action="DetailsPelicula"
-                           asp-route-idserie="@pp.IdPelicula" class="link-pelicula-popu">
+                           asp-route-idpelicula="@pp.IdPelicula" class="link-pelicula-popu">
                             @pp.Titulo
                         </a>
                     </h4>
