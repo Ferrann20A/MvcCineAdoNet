@@ -21,8 +21,8 @@ namespace MvcCineAdoNet.Controllers
         {
             if(idserie != null)
             {
-                Usuario user = HttpContext.Session.GetObject<Usuario>("usuario");
-                await this.repo.InsertFavoritoSerieAsync(user.IdUsuario, idserie.Value);
+                int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                await this.repo.InsertFavoritoSerieAsync(idusuario, idserie.Value);
             }
             List<Serie> series = await this.repo.GetSeriesAsync();
             return View(series);
@@ -69,8 +69,8 @@ namespace MvcCineAdoNet.Controllers
             DateTime fechaActual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
             await this.repo.InsertComentarioSerieAsync(idusuario, idserie, fechaActual, comentario);
             ViewData["mensaje"] = "Nuevo comentario introducido con éxito!!";
-            return View();
-            //mirara aqui como poner el return redirect to action pasando el id para que rediriga a los detalles
+            return RedirectToAction("DetailsSerie", new {idserie = idserie});
+            //return View();
         }
     }
 }

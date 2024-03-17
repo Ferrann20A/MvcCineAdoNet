@@ -289,7 +289,7 @@ namespace MvcCineAdoNet.Repositories
             }
         }
 
-        public async Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password)
+        public async Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password, string fechaNac)
         {
             Usuario user = new Usuario();
             user.IdUsuario = await this.GetMaxIdUsuarioAsync();
@@ -299,6 +299,7 @@ namespace MvcCineAdoNet.Repositories
             user.Salt = HelperTools.GenerateSalt();
             user.Password = HelperCryptography.EncryptPassword(password, user.Salt);
             user.Contrasenia = password;
+            user.FechaNac = fechaNac;
             this.cineContext.Usuarios.Add(user);
             await this.cineContext.SaveChangesAsync();
             return user;

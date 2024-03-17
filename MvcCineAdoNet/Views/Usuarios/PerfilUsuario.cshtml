@@ -1,6 +1,26 @@
 ﻿@model Usuario
 
 <div class="container">
-    <h1>Bienvenido @Model.Nombre</h1>
-    <h2>Email: @Model.Email</h2>
+    <div class="contenedor-perfil">
+        <h1 class="text-center">Bienvenido @Model.Nombre</h1>
+        <div class="perfil-info">
+            <div class="img-perfil">
+                <img id="img-perfil" src="~/images/perfil/img-perfil.png" alt="img-perfil" />
+            </div>
+            <div class="campos">
+                <div class="campo">
+                    <label>Email:</label>
+                    <span>@Model.Email</span>
+                </div>
+                <div class="campo">
+                    <label>Rol:</label>
+                    <span>@Model.Rol</span>
+                </div>
+                <div class="campo">
+                    <label>Fecha de Nacimiento:</label>
+                    <span>@Model.FechaNac</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

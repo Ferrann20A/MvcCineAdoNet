@@ -2,8 +2,12 @@
 
 <div class="container">
     <h1 class="text-center mt-3 milista-titulo">Mi Lista</h1>
+    @if(Model.ViewAllPeliculas.Count() == 0 && Model.ViewAllSeries.Count() == 0)
+    {
+        <h4>No tienes nada guardado aún en "Mi Lista"</h4>
+    }
     <div class="container-milista">
-        @if (Model != null)
+        @if (Model.ViewAllPeliculas != null)
         {
             @foreach (ViewAllPelicula peli in Model.ViewAllPeliculas)
             {
@@ -19,7 +23,7 @@
                 </div>
             }
         }
-        @if (Model != null)
+        @if (Model.ViewAllSeries != null)
         {
             @foreach (ViewAllSerie serie in Model.ViewAllSeries)
             {

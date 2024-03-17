@@ -23,9 +23,9 @@ namespace MvcCineAdoNet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string nombre, string email, string password)
+        public async Task<IActionResult> Register(string nombre, string email, string password, string fechaNac)
         {
-            Usuario user = await this.repo.RegisterUsuarioAsync(nombre, email, password);
+            await this.repo.RegisterUsuarioAsync(nombre, email, password, fechaNac);
             return RedirectToAction("LogIn");
         }
 
@@ -83,9 +83,9 @@ namespace MvcCineAdoNet.Controllers
         }
 
         [AuthorizeUsuarios]
-        public async Task<IActionResult> PerfilUsuario(int idUsuario)
+        public async Task<IActionResult> PerfilUsuario(int idusuario)
         {
-            Usuario user = await this.repo.FindUsuarioAsync(idUsuario);
+            Usuario user = await this.repo.FindUsuarioAsync(idusuario);
             return View(user);
         }
 

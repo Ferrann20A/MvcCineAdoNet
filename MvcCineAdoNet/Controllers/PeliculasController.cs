@@ -21,19 +21,8 @@ namespace MvcCineAdoNet.Controllers
         {
             if(idpelicula != null)
             {
-                //List<int> idspeliculas;
-                //if(HttpContext.Session.GetString("idspeliculas") == null)
-                //{
-                //    idspeliculas = new List<int>();
-                //}
-                //else
-                //{
-                //    idspeliculas = HttpContext.Session.GetObject<List<int>>("idspeliculas");
-                //}
-                //idspeliculas.Add(idpelicula.Value);
-                //HttpContext.Session.SetObject("idspeliculas", idspeliculas);
-                Usuario user = HttpContext.Session.GetObject<Usuario>("usuario");
-                await this.repo.InsertFavoritoPeliculaAsync(user.IdUsuario, idpelicula.Value);
+                int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                await this.repo.InsertFavoritoPeliculaAsync(idusuario, idpelicula.Value);
             }
             List<Pelicula> peliculas = await this.repo.GetPeliculasAsync();
             return View(peliculas);
@@ -89,8 +78,7 @@ namespace MvcCineAdoNet.Controllers
             DateTime fechaActual = DateTime.ParseExact(DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
             await this.repo.InsertComentarioPeliculaAsync(idusuario, idpelicula, fechaActual, comentario);
             ViewData["mensaje"] = "Nuevo comentario introducido con éxito!!";
-            return View();
-            //return RedirectToAction("DetailsPelicula");
+            return RedirectToAction("DetailsPelicula", new {idpelicula = idpelicula});
         }
     }
 }

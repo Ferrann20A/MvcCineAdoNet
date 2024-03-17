@@ -1,9 +1,5 @@
 ﻿@model List<Pelicula>
 
-@{
-    Usuario user = Context.Session.GetObject<Usuario>("usuario");
-}
-
 <div class="container">
     <div class="buscador">
         <form method="post" class="buscador-form">
@@ -28,7 +24,7 @@
                             <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
                         </a>
                         <p class="pelicula-director">Director: @peli.Director</p>
-                        @if(user != null)
+                        @if (Context.User.Identity.IsAuthenticated == true)
                         {
                             <a asp-controller="Peliculas" asp-action="BuscadorPeliculas"
                                asp-route-idpelicula="@peli.IdPelicula" class="bnt-milista">

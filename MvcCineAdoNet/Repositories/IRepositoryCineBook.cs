@@ -6,7 +6,7 @@ namespace MvcCineAdoNet.Repositories
     {
         Task<List<Pelicula>> GetPeliculasAsync();
         Task<List<Serie>> GetSeriesAsync();
-        Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password);
+        Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password, string fechaNac);
         Task<Usuario> LogInUserAsync(string email, string password);
         Task<Usuario> FindUsuarioAsync(int idUsuario);
         Task<List<Pelicula>> BuscadorPeliculasAsync(string titulo);

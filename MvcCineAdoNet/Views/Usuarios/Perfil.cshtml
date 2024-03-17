@@ -3,12 +3,20 @@
 }
 
 <div class="container">
-    <ul>
-        <li>
-            <a asp-controller="Usuarios" asp-action="PerfilUsuario"
-                asp-route-idUsuario="@usuario.FindFirst(ClaimTypes.NameIdentifier).Value">
-                Perfil @usuario.FindFirst(ClaimTypes.Name).Value
-            </a>
-        </li>
-    </ul>
+    <p class="mt-5">
+        <a asp-controller="Usuarios" asp-action="PerfilUsuario"
+            asp-route-idusuario="@usuario.FindFirst(ClaimTypes.NameIdentifier).Value">
+            Perfil @usuario.FindFirst(ClaimTypes.Name).Value
+        </a>
+    </p>
+    <p class="mt-2">
+        <a asp-controller="Home" asp-action="Index">
+            Otro link
+        </a>
+    </p>
+    <p class="mt-2">
+        <a asp-controller="Home" asp-action="Index">
+            Otro link
+        </a>
+    </p>
 </div>

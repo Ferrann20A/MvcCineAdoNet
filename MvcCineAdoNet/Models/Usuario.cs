@@ -21,5 +21,7 @@ namespace MvcCineAdoNet.Models
         public string Salt { get; set; }
         [Column("contrasenia")]
         public string Contrasenia { get; set; }
+        [Column("fechaNac")]
+        public string FechaNac { get; set; }
     }
 }
