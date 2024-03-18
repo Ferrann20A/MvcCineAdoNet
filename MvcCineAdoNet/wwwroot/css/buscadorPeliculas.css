@@ -103,7 +103,7 @@
 }
 
 .pelicula-director {
-    margin: 0;
+    margin-bottom: 1rem;
     color: #8D99AE;
     transition: .5s;
 }
@@ -112,5 +112,21 @@
     transform: scale(.95);
     color: #EDF2F4;
 }
+
+.pelicula-info .btn-milista {
+    border: 1px solid #3fa7d6;
+    background-color: transparent;
+    padding: .5rem;
+    color: #EDF2F4;
+    transition: .5s;
+    margin-left: .5rem;
+    border-radius: 5px;
+}
+
+    .pelicula-info .btn-milista:hover {
+        border: 1px solid #3fa7d6;
+        background-color: #3fa7d6;
+        color: #EDF2F4;
+    }
 
 

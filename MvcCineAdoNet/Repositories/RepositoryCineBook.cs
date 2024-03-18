@@ -570,12 +570,13 @@ namespace MvcCineAdoNet.Repositories
 
         }
 
-        public async Task UpdateUsuarioAsync(string nombre, string fechaNac)
+        public async Task UpdateUsuarioAsync(int idusuario ,string nombre, string email, string fechaNac)
         {
-            Usuario user = new Usuario();
+            Usuario user = await this.FindUsuarioAsync(idusuario);
             user.Nombre = nombre;
+            user.Email = email;
             user.FechaNac = fechaNac;
-
+            this.cineContext.SaveChanges();
         }
     }
 }

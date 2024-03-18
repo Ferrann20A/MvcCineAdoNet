@@ -1,0 +1,58 @@
+﻿.contenedor-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0 2rem 0;
+}
+
+.form-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.edit {
+    text-align: center;
+    margin-bottom: .5rem;
+    font-size: 36px;
+    color: #EF233C;
+}
+
+.form-perfil {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.input-form {
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #555;
+}
+
+.btn-form-edit {
+    padding: 10px;
+    background-color: #EF233C;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .btn-form-edit:hover {
+        background-color: #D80032;
+    }

@@ -130,9 +130,10 @@ namespace MvcCineAdoNet.Controllers
 
         [AuthorizeUsuarios]
         [HttpPost]
-        public async Task<IActionResult> EditarPerfil()
+        public async Task<IActionResult> EditarPerfil(int idusuario, string nombre, string email, string fechaNac)
         {
-
+            await this.repo.UpdateUsuarioAsync(idusuario, nombre, email, fechaNac);
+            return RedirectToAction("PerfilUsuario", new { idusuario = idusuario });
         }
     }
 }

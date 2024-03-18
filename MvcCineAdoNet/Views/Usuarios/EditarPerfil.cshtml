@@ -1,0 +1,21 @@
+﻿@model Usuario
+
+<div class="container">
+    <div class="contenedor-perfil">
+        <div class="form-container">
+            <h1 class="edit">Editar Perfil</h1>
+            <form method="post" class="form-perfil">
+                <input type="hidden" name="idusuario" value="@Model.IdUsuario" />
+                <label class="label">Nombre</label>
+                <input type="text" name="nombre" value="@Model.Nombre" class="input-form" />
+                <label class="label">Email</label>
+                <input type="text" name="email" value="@Model.Email" class="input-form" />
+                <label class="label">Fecha de Nacimiento</label>
+                <input type="text" name="fechaNac" value="@Model.FechaNac" class="input-form" />
+                <button class="btn-form-edit">
+                    Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
