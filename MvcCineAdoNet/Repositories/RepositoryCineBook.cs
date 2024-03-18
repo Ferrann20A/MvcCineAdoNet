@@ -569,5 +569,13 @@ namespace MvcCineAdoNet.Repositories
             SqlParameter pamId = new SqlParameter("@idfavorito", idfavorito);
 
         }
+
+        public async Task UpdateUsuarioAsync(string nombre, string fechaNac)
+        {
+            Usuario user = new Usuario();
+            user.Nombre = nombre;
+            user.FechaNac = fechaNac;
+
+        }
     }
 }

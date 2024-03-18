@@ -40,5 +40,6 @@ namespace MvcCineAdoNet.Repositories
         Task InsertComentarioSerieAsync(int idusuario, int idserie, DateTime fechaComentario, string comentario);
         Task DeleteFavoritoPeliculaAsync(int idfavorito);
         Task DeleteFavoritoSerieAsync(int idfavorito);
+        Task UpdateUsuarioAsync(string nombre, string fechaNac);
     }
 }

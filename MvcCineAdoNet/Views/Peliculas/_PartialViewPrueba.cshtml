@@ -1,0 +1,40 @@
+﻿@model List<Pelicula>
+
+<div class="container">
+    <div class="buscador">
+        <form method="post" class="buscador-form">
+            <input type="text" name="titulo" class="input-buscador"
+                   placeholder="Busca una película para obtener información..." />
+            <button class="btn-buscar">
+                <i id="lupa" class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <h2>@ViewData["mensaje"]</h2>
+    <div class="peliculas-container">
+        @if (Model != null)
+        {
+            @foreach (Pelicula peli in Model)
+            {
+                <div class="pelicula-card">
+                    <img src="~/images/peliculas/@peli.Imagen" alt="@peli.Titulo" class="pelicula-imagen">
+                    <div class="pelicula-info">
+                        <a asp-controller="Peliculas" asp-action="DetailsPelicula"
+                           asp-route-idpelicula="@peli.IdPelicula">
+                            <h2 class="pelicula-titulo">@peli.Titulo ● @peli.AnioEstreno</h2>
+                        </a>
+                        <p class="pelicula-director">Director: @peli.Director</p>
+                        @if (Context.User.Identity.IsAuthenticated == true)
+                        {
+                            @* <a asp-controller="Peliculas" asp-action="BuscadorPeliculas"
+                               asp-route-idpelicula="@peli.IdPelicula" class="bnt-milista">
+                                <i class="fa-solid fa-plus"></i> Mi Lista
+                            </a> *@
+                            <button onclick="addMiLista(@peli.IdPelicula)"> + Mi Lista</button>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -28,6 +28,7 @@ namespace MvcCineAdoNet.Controllers
             return View(peliculas);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> BuscadorPeliculas(string titulo)
         {
@@ -43,7 +44,32 @@ namespace MvcCineAdoNet.Controllers
             }
         }
 
-        
+        //public async Task<IActionResult> _PartialViewPrueba(int? idpelicula)
+        //{
+        //    if (idpelicula != null)
+        //    {
+        //        int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        //        await this.repo.InsertFavoritoPeliculaAsync(idusuario, idpelicula.Value);
+        //    }
+        //    List<Pelicula> peliculas = await this.repo.GetPeliculasAsync();
+        //    return PartialView("_PartialViewPrueba", peliculas);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> _PartialViewPrueba(string titulo)
+        //{
+        //    if (titulo == null)
+        //    {
+        //        ViewData["mensaje"] = "Debe introducir un título para buscar una película.";
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        List<Pelicula> peliculasEncontradas = await this.repo.BuscadorPeliculasAsync(titulo);
+        //        return PartialView("_PartialViewPrueba", peliculasEncontradas);
+        //    }
+        //}
+
         public async Task<IActionResult> DetailsPelicula(int idpelicula)
         {
             ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idpelicula);

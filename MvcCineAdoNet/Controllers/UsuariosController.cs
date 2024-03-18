@@ -120,5 +120,19 @@ namespace MvcCineAdoNet.Controllers
             }
             return View();
         }
+
+        [AuthorizeUsuarios]
+        public async Task<IActionResult> EditarPerfil(int idusuario)
+        {
+            Usuario user = await this.repo.FindUsuarioAsync(idusuario);
+            return View(user);
+        }
+
+        [AuthorizeUsuarios]
+        [HttpPost]
+        public async Task<IActionResult> EditarPerfil()
+        {
+
+        }
     }
 }

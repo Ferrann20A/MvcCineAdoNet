@@ -1,26 +1,32 @@
 ﻿@model Usuario
 
+@section scripts{
+    <script>
+        // Mostrar el modal al hacer clic en el botón "Editar Perfil"
+        document.getElementById("editarPerfil").addEventListener("click", function () {
+            document.getElementById("modalEditarPerfil").style.display = "block";
+        });
+
+        // Ocultar el modal al hacer clic en la "X" de cerrar
+        document.getElementsByClassName("close")[0].addEventListener("click", function () {
+            document.getElementById("modalEditarPerfil").style.display = "none";
+        });
+
+    </script>
+}
+
 <div class="container">
-    <div class="contenedor-perfil">
-        <h1 class="text-center">Bienvenido @Model.Nombre</h1>
-        <div class="perfil-info">
-            <div class="img-perfil">
-                <img id="img-perfil" src="~/images/perfil/img-perfil.png" alt="img-perfil" />
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="card">
+            <div class="profile-picture">
+                <img src="~/images/perfil/img-perfil.png" alt="Profile Picture">
             </div>
-            <div class="campos">
-                <div class="campo">
-                    <label>Email:</label>
-                    <span>@Model.Email</span>
-                </div>
-                <div class="campo">
-                    <label>Rol:</label>
-                    <span>@Model.Rol</span>
-                </div>
-                <div class="campo">
-                    <label>Fecha de Nacimiento:</label>
-                    <span>@Model.FechaNac</span>
-                </div>
-            </div>
+            <h2 class="name">@Model.Nombre</h2>
+            <h3 class="username">@Model.Email</h3>
+            <p class="description">Tipo de usuario: @Model.Rol</p>
+            <p class="description">Cumpleaños: @Model.FechaNac</p>
+            <a asp-controller="Usuarios" asp-action="EditarPerfil" 
+               asp-route-idusuario="@Model.IdUsuario" class="button">Editar Perfil</a>
         </div>
     </div>
 </div>
