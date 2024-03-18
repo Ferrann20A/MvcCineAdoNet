@@ -227,6 +227,18 @@ using System.IO;
 //	insert into Comentario_Serie values(@nextId, @idusuario, @idserie, @fechaComentario, @comentario);
 //go
 
+//create procedure SP_DELETE_FAVORITO_PELICULA
+//(@idfavorito int)
+//as
+//	delete from Favorito_Pelicula where idfavorito = @idfavorito;
+//go
+
+//create procedure SP_DELETE_FAVORITO_SERIE
+//(@idfavorito int)
+//as
+//	delete from Favorito_Serie where idfavorito = @idfavorito;
+//go
+
 #endregion
 
 namespace MvcCineAdoNet.Repositories
@@ -542,6 +554,20 @@ namespace MvcCineAdoNet.Repositories
             SqlParameter pamFechaComentario = new SqlParameter("@fechaComentario", fechaComentario);
             SqlParameter pamComentario = new SqlParameter("@comentario", comentario);
             this.cineContext.Database.ExecuteSqlRaw(sql, pamIdUsuario, pamIdSerie, pamFechaComentario, pamComentario);
+        }
+
+        public async Task DeleteFavoritoPeliculaAsync(int idfavorito)
+        {
+            string sql = "SP_DELETE_FAVORITO_PELICULA @idfavorito";
+            SqlParameter pamId = new SqlParameter("@idfavorito", idfavorito);
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamId);
+        }
+
+        public async Task DeleteFavoritoSerieAsync(int idfavorito)
+        {
+            string sql = "SP_DELETE_FAVORITO_SERIE @idfavorito";
+            SqlParameter pamId = new SqlParameter("@idfavorito", idfavorito);
+
         }
     }
 }

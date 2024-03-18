@@ -65,7 +65,6 @@
 
     .serie-card:hover {
         background-color: #3a3d57;
-        cursor: pointer;
     }
 
         .serie-card:hover .serie-imagen {

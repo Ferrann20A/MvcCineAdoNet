@@ -19,7 +19,6 @@
 
     .card-milista:hover {
         background-color: #3a3d57;
-        cursor: pointer;
     }
 
         .card-milista:hover .imagen-milista {
@@ -44,7 +43,12 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1rem;
-    transition: transform .5s;
+    transition: color .2s, transform .5s;
+    color: #EDF2F4;
+}
+
+.titulo-milista:hover {
+    color: #8D99AE;
 }
 
 .card-milista:hover .titulo-milista {
@@ -62,3 +66,28 @@
     transform: scale(.95);
     color: #EDF2F4;
 }
+
+.btn-delete-favorito {
+    border: 1px solid #EF233C;
+    padding: .3rem .5rem .2rem .5rem;
+    border-radius: 5px;
+    background-color: #EF233C;
+    transition: .3s;
+}
+
+#trash-icon {
+    color: #EDF2F4;
+    transition: .3s;
+}
+
+.btn-delete-favorito:hover {
+    border: 1px solid #EF233C;
+    padding: .3rem .5rem .2rem .5rem;
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.btn-delete-favorito:hover #trash-icon {
+    color: #EF233C;
+}
+

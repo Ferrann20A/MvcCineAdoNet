@@ -65,7 +65,6 @@
 
     .pelicula-card:hover {
         background-color: #3a3d57;
-        cursor: pointer;
     }
 
 .pelicula-card:hover .pelicula-imagen{
@@ -77,7 +76,7 @@
     width: 15rem;
     height: 20rem;
     border-radius: 1rem;
-    opacity: 60%;
+    opacity: 50%;
     transition: opacity .3s;
     transition: transform .5s;
 }
@@ -90,8 +89,13 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1rem;
-    transition: transform .5s;
+    transition: color .2s, transform .5s;
+    color: #EDF2F4;
 }
+
+    .pelicula-titulo:hover {
+        color: #8D99AE;
+    }
 
 .pelicula-card:hover .pelicula-titulo {
     opacity: 100%;

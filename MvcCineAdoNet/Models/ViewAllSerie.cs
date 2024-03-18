@@ -6,11 +6,11 @@ namespace MvcCineAdoNet.Models
     [Table("V_ALL_SERIE")]
     public class ViewAllSerie
     {
+        [Key]
         [Column("idFavorito")]
         public int IdFavorito { get; set; }
         [Column("idUsuario")]
         public int IdUsuario { get; set; }
-        [Key]
         [Column("idSerie")]
         public int IdSerie { get; set; }
         [Column("titulo")]

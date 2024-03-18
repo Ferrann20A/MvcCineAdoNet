@@ -96,13 +96,21 @@ namespace MvcCineAdoNet.Controllers
         }
 
         [AuthorizeUsuarios]
-        public async Task<IActionResult> MiListaUsuario(int? ideliminar)
+        public async Task<IActionResult> MiListaUsuario(int? ideliminarpelicula, int? ideliminarserie)
         {
-            Usuario user = HttpContext.Session.GetObject<Usuario>("usuario");
-            if(user != null)
+            if(HttpContext.User.Identity.IsAuthenticated == true)
             {
-                List<ViewAllPelicula> pelisFav = await this.repo.GetFavoritosPeliculaByUsuarioAsync(user.IdUsuario);
-                List<ViewAllSerie> seriesFav = await this.repo.GetFavoritosSerieByUsuarioAsync(user.IdUsuario);
+                if(ideliminarpelicula != null)
+                {
+                    await this.repo.DeleteFavoritoPeliculaAsync(ideliminarpelicula.Value);
+                }
+                if(ideliminarserie != null)
+                {
+                    await this.repo.DeleteFavoritoSerieAsync(ideliminarserie.Value);
+                }
+                int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                List<ViewAllPelicula> pelisFav = await this.repo.GetFavoritosPeliculaByUsuarioAsync(idusuario);
+                List<ViewAllSerie> seriesFav = await this.repo.GetFavoritosSerieByUsuarioAsync(idusuario);
                 ResumenMiListaPeliculasSeries resumen = new ResumenMiListaPeliculasSeries
                 {
                     ViewAllPeliculas = pelisFav,
