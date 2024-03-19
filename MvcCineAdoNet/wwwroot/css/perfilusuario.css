@@ -44,7 +44,7 @@
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #EF233C;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -52,7 +52,7 @@
 }
 
     .button:hover {
-        background-color: #0056b3;
+        background-color: #D80032;
     }
 
 .modal {
@@ -74,21 +74,6 @@
     width: 80%;
     border-radius: 10px;
 }
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
 
 
 
