@@ -21,6 +21,17 @@ namespace MvcCineAdoNet.Controllers
         {
             if(idserie != null)
             {
+                List<int> idsseries;
+                if(HttpContext.Session.GetString("idsseries") == null)
+                {
+                    idsseries = new List<int>();
+                }
+                else
+                {
+                    idsseries = HttpContext.Session.GetObject<List<int>>("idsseries");
+                }
+                idsseries.Add(idserie.Value);
+                HttpContext.Session.SetObject("idsseries", idsseries);
                 int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 await this.repo.InsertFavoritoSerieAsync(idusuario, idserie.Value);
             }

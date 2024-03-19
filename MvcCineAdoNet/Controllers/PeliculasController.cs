@@ -19,8 +19,19 @@ namespace MvcCineAdoNet.Controllers
 
         public async Task<IActionResult> BuscadorPeliculas(int? idpelicula)
         {
-            if(idpelicula != null)
+            if (idpelicula != null)
             {
+                List<int> idspeliculas;
+                if(HttpContext.Session.GetString("idspeliculas") == null)
+                {
+                    idspeliculas = new List<int>();
+                }
+                else
+                {
+                    idspeliculas = HttpContext.Session.GetObject<List<int>>("idspeliculas");
+                }
+                idspeliculas.Add(idpelicula.Value);
+                HttpContext.Session.SetObject("idspeliculas", idspeliculas);
                 int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 await this.repo.InsertFavoritoPeliculaAsync(idusuario, idpelicula.Value);
             }

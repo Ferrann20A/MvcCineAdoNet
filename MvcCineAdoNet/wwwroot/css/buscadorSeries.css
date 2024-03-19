@@ -101,9 +101,26 @@
     margin: 0;
     color: #8D99AE;
     transition: .5s;
+    margin-bottom: .5rem;
 }
 
 .serie-card:hover .serie-director {
     transform: scale(.95);
     color: #EDF2F4;
 }
+
+.serie-info .btn-milista {
+    border: 1px solid #3fa7d6;
+    background-color: transparent;
+    padding: .5rem;
+    color: #EDF2F4;
+    transition: .5s;
+    margin-left: .5rem;
+    border-radius: 5px;
+}
+
+    .serie-info .btn-milista:hover {
+        border: 1px solid #3fa7d6;
+        background-color: #3fa7d6;
+        color: #EDF2F4;
+    }

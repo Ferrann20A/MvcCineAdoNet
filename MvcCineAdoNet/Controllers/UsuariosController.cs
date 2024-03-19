@@ -96,11 +96,44 @@ namespace MvcCineAdoNet.Controllers
         }
 
         [AuthorizeUsuarios]
-        public async Task<IActionResult> MiListaUsuario(int? ideliminarpelicula, int? ideliminarserie)
+        public async Task<IActionResult> MiListaUsuario(int? ideliminarpelicula, int? idpelicula,
+            int? ideliminarserie, int? idserie)
         {
             if(HttpContext.User.Identity.IsAuthenticated == true)
             {
-                if(ideliminarpelicula != null)
+                List<int> idspeliculas = HttpContext.Session.GetObject<List<int>>("idspeliculas");
+                List<int> idsseries = HttpContext.Session.GetObject<List<int>>("idsseries");
+                if(idspeliculas != null)
+                {
+                    if(idpelicula != null)
+                    {
+                        idspeliculas.Remove(idpelicula.Value);
+                        if(idspeliculas.Count() == 0)
+                        {
+                            HttpContext.Session.Remove("idspeliculas");
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetObject("idspeliculas", idspeliculas);
+                        }
+                    }
+                }
+                if (idsseries != null)
+                {
+                    if (idserie != null)
+                    {
+                        idsseries.Remove(idserie.Value);
+                        if (idsseries.Count() == 0)
+                        {
+                            HttpContext.Session.Remove("idsseries");
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetObject("idsseries", idsseries);
+                        }
+                    }
+                }
+                if (ideliminarpelicula != null)
                 {
                     await this.repo.DeleteFavoritoPeliculaAsync(ideliminarpelicula.Value);
                 }

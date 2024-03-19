@@ -1,5 +1,9 @@
 ﻿@model List<Serie>
 
+@{
+    List<int> idsseries = Context.Session.GetObject<List<int>>("idsseries");
+}
+
 <div class="container">
     <div class="buscador">
         <form method="post" class="buscador-form">
@@ -26,10 +30,27 @@
                         <p class="serie-director">Director: @serie.Creador</p>
                         @if (Context.User.Identity.IsAuthenticated == true)
                         {
-                            <a asp-controller="Series" asp-action="BuscadorSeries"
-                               asp-route-idserie="@serie.IdSerie" class="bnt-milista">
-                                <i class="fa-solid fa-plus"></i> Mi Lista
-                            </a>
+                            if (idsseries == null)
+                            {
+                                <a asp-controller="Series" asp-action="BuscadorSeries"
+                                   asp-route-idserie="@serie.IdSerie" class="btn-milista">
+                                    <i class="fa-solid fa-plus"></i> Mi Lista
+                                </a>
+                            }
+                            else
+                            {
+                                if (idsseries.Contains(serie.IdSerie))
+                                {
+                                    <p class="check-milista"><i class="fa-solid fa-check"></i> Mi Lista</p>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Series" asp-action="BuscadorSeries"
+                                       asp-route-idserie="@serie.IdSerie" class="btn-milista">
+                                        <i class="fa-solid fa-plus"></i> Mi Lista
+                                    </a>
+                                }
+                            }
                         }
                     </div>
                 </div>

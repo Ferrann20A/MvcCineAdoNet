@@ -567,7 +567,7 @@ namespace MvcCineAdoNet.Repositories
         {
             string sql = "SP_DELETE_FAVORITO_SERIE @idfavorito";
             SqlParameter pamId = new SqlParameter("@idfavorito", idfavorito);
-
+            this.cineContext.Database.ExecuteSqlRaw(sql, pamId);
         }
 
         public async Task UpdateUsuarioAsync(int idusuario ,string nombre, string email, string fechaNac)

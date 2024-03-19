@@ -19,7 +19,7 @@
                                asp-route-idpelicula="@peli.IdPelicula">
                                 <h2 class="titulo-milista">@peli.Titulo ● @peli.AnioEstreno</h2>
                             </a>
-                            <a asp-controller="Usuarios" asp-action="MiListaUsuario"
+                            <a asp-controller="Usuarios" asp-action="MiListaUsuario" asp-route-idpelicula="@peli.IdPelicula"
                                asp-route-ideliminarpelicula="@peli.IdFavorito" class="btn-delete-favorito">
                                 <i id="trash-icon" class="fa-solid fa-trash-can"></i>
                             </a>
@@ -41,7 +41,7 @@
                                asp-route-idserie="@serie.IdSerie">
                                 <h2 class="titulo-milista">@serie.Titulo ● @serie.AnioEstreno</h2>
                             </a>
-                            <a asp-controller="Usuarios" asp-action="MiListaUsuario"
+                            <a asp-controller="Usuarios" asp-action="MiListaUsuario" asp-route-idserie="@serie.IdSerie"
                                asp-route-ideliminarserie="@serie.IdFavorito" class="btn-delete-favorito">
                                 <i id="trash-icon" class="fa-solid fa-trash-can"></i>
                             </a>
