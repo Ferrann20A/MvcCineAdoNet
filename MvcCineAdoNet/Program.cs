@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddTransient<IRepositoryCineBook, RepositoryCineBook>();
-string connectionString = builder.Configuration.GetConnectionString("SqlServerCineBook");
+string connectionString = builder.Configuration.GetConnectionString("SqlAzure");
 builder.Services.AddDbContext<CineBookContext>
     (options => options.UseSqlServer(connectionString));
 

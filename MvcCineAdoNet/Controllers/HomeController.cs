@@ -18,7 +18,10 @@ namespace MvcCineAdoNet.Controllers
             int maxIdPelicula = this.repo.GetMaxIdPelicula();
             Random random = new Random();
             int idRandom = random.Next(1, maxIdPelicula + 1);
-            ViewPeliculaCompleta peli = await this.repo.GetPeliculaRandomAsync(idRandom);
+            //LO QUE TENGO QUE HACER AQUI ES UTILIZAR EL METODO DE FindPeliculaCompletaAsync
+            //QUE ES EL MISMO METODO QUE EL DE GetPeliculaRandomAsync ASI ME AHORRO ESE METODO
+            //QUE ES INNECESARIO
+            ViewPeliculaCompleta peli = await this.repo.FindPeliculaCompletaAsync(idRandom);
             List<Pelicula> pelisPopus = await this.repo.GetPeliculasPopularesAsync();
             List<Serie> seriesPopus = await this.repo.GetSeriesPopularesAsync();
             ResumenHome resumen = new ResumenHome
