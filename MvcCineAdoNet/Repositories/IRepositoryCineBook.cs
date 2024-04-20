@@ -31,7 +31,7 @@ namespace MvcCineAdoNet.Repositories
         Task<List<ActoresSerie>> GetActoresBySerieAsync(int idserie);
         Task<List<Pelicula>> GetPeliculasPopularesAsync();
         Task<List<Serie>> GetSeriesPopularesAsync();
-        int GetMaxIdPelicula();
+        Task<int> GetMaxIdPelicula();
         //Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula);
         Task<Pelicula> GetPeliculasByGenero(int idgenero);
         Task<List<ComentarioPelicula>> GetComentariosPeliculaAsync(int idpelicula);

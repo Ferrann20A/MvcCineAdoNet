@@ -1,7 +1,10 @@
-﻿using MvcCineAdoNet.Models;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NuGet.Common;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -270,14 +273,18 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Pelicula>> GetPeliculasPopularesAsync()
+        public async Task<List<Pelicula>> GetPeliculasPopularesAsync()
         {
-            
+            string request = "api/peliculas/getpeliculaspopulares";
+            List<Pelicula> pelisPopus = await this.CallApiAsync<List<Pelicula>>(request);
+            return pelisPopus;
         }
 
-        public Task<List<Serie>> GetSeriesAsync()
+        public async Task<List<Serie>> GetSeriesAsync()
         {
-            throw new NotImplementedException();
+            string request = "api/series";
+            List<Serie> series = await this.CallApiAsync<List<Serie>>(request);
+            return series;
         }
 
         public Task<List<ViewSerieCompleta>> GetSeriesCompletasAsync()
@@ -285,14 +292,75 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Serie>> GetSeriesPopularesAsync()
+        public async Task<List<Serie>> GetSeriesPopularesAsync()
         {
-            throw new NotImplementedException();
+            string request = "api/series/getseriespopulares";
+            List<Serie> seriesPopus = await this.CallApiAsync<List<Serie>>(request);
+            return seriesPopus;
         }
+
+        public async Task CreateComentarioPeliculaAsync(int idpelicula, string comentario)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string request = "api/peliculas/createcomentariopelicula";
+                string token = this.GetTokenUser();
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                ComentarioPeliculaPost comment = new ComentarioPeliculaPost
+                {
+                    IdPelicula = idpelicula,
+                    Comentario = comentario
+                };
+                string json = JsonConvert.SerializeObject(comment);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(request, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("El comentario se creó correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Hubo un problema al crear el comentario.");
+                }
+            }
+        }
+
 
         public Task InsertComentarioPeliculaAsync(int idusuario, int idpelicula, DateTime fechaComentario, string comentario)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task CreateComentarioSerieAsync(int idserie, string comentario)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string request = "api/series/createcomentarioserie";
+                string token = this.GetTokenUser();
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                ComentarioSeriePost comment = new ComentarioSeriePost
+                {
+                    IdSerie = idserie,
+                    Comentario = comentario
+                };
+                string json = JsonConvert.SerializeObject(comment);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(request, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("El comentario se creó correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Hubo un problema al crear el comentario.");
+                }
+            }
         }
 
         public Task InsertComentarioSerieAsync(int idusuario, int idserie, DateTime fechaComentario, string comentario)
@@ -300,14 +368,32 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task InsertFavoritoPeliculaAsync(int idusuario, int idpelicula)
+        public async Task InsertFavoritoPeliculaAsync(int idusuario, int idpelicula)
         {
-            throw new NotImplementedException();
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/favoritos/insertpeliculafavoritos/" + idpelicula;
+                string token = this.GetTokenUser();
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                HttpResponseMessage response = await client.PostAsync(request, null);
+            }
         }
 
-        public Task InsertFavoritoSerieAsync(int idusuario, int idserie)
+        public async Task InsertFavoritoSerieAsync(int idusuario, int idserie)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                string request = "api/favoritos/insertseriefavoritos/" + idserie;
+                string token = this.GetTokenUser();
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                HttpResponseMessage response = await client.PostAsync(request, null);
+            }
         }
 
         public Task InsertPeliculaAsync(string titulo, string director, int anioEstreno, int duracion, int popularidad, int idGenero, string sinopsis, string trailer, string imagen, double IMDB)
@@ -325,14 +411,69 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password, string fechaNac)
+        public async Task<Usuario> RegisterUsuarioAsync(string nombre, string email, string password, string fechaNac)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUsuarioAsync(int idusuario, string nombre, string email, string fechaNac)
+        public async Task<RegisterModel> RegisterUsuarioModelAsync(string nombre, string email, string password, string fechaNac)
         {
-            throw new NotImplementedException();
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/usuarios/register";
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                RegisterModel model = new RegisterModel
+                {
+                    Nombre = nombre, 
+                    Email = email,
+                    Password = password,
+                    FechaNac = fechaNac
+                };
+                string json = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(request, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("El usuario se creó correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Hubo un problema al crear el usuario.");
+                }
+                return model;
+            }
+        }
+
+        public async Task UpdateUsuarioAsync(int idusuario, string nombre, string email, string fechaNac)
+        {
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/usuarios/updateusuario";
+                string token = this.GetTokenUser();
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                UpdateUsuarioModel model = new UpdateUsuarioModel
+                {
+                    Nombre = nombre,
+                    Email = email,
+                    FechaNac = fechaNac
+                };
+                string json = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync(request, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("El usuario se ha actualizado correctamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Hubo un problema al actualizar el usuario.");
+                }
+            }
         }
     }
 }

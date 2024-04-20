@@ -502,9 +502,9 @@ namespace MvcCineAdoNet.Repositories
             return serisPopus;
         }
 
-        public int GetMaxIdPelicula()
+        public async Task<int> GetMaxIdPelicula()
         {
-            return this.cineContext.Peliculas.Max(z => z.IdPelicula);
+            return await this.cineContext.Peliculas.MaxAsync(z => z.IdPelicula);
         }
 
         //public async Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula)
