@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MvcCineAdoNet.Data;
 using MvcCineAdoNet.Repositories;
+using MvcCineAdoNet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -24,6 +27,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddTransient<ServiceCineBook>();
+
 builder.Services.AddTransient<IRepositoryCineBook, RepositoryCineBook>();
 string connectionString = builder.Configuration.GetConnectionString("SqlAzure");
 builder.Services.AddDbContext<CineBookContext>
@@ -31,7 +36,7 @@ builder.Services.AddDbContext<CineBookContext>
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
 builder.Services.AddControllersWithViews(options => options.EnableEndpointRouting = false);
@@ -47,6 +52,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseSession();
 

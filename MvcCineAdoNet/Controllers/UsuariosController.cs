@@ -6,15 +6,18 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using MvcCineAdoNet.Filters;
+using MvcCineAdoNet.Services;
 
 namespace MvcCineAdoNet.Controllers
 {
     public class UsuariosController : Controller
     {
         private IRepositoryCineBook repo;
-        public UsuariosController(IRepositoryCineBook repo)
+        private ServiceCineBook service;
+        public UsuariosController(IRepositoryCineBook repo, ServiceCineBook service)
         {
             this.repo = repo;
+            this.service = service;
         }
 
         public IActionResult Register()
@@ -37,8 +40,9 @@ namespace MvcCineAdoNet.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(string email, string password)
         {
+            string token = await this.service.GetTokenAsync(email, password);
             Usuario user = await this.repo.LogInUserAsync(email, password);
-            if (user == null)
+            if (token == null)
             {
                 ViewData["mensaje_error"] = "Credenciales incorrectas";
                 return View();
@@ -58,6 +62,8 @@ namespace MvcCineAdoNet.Controllers
                 identity.AddClaim(claimRol);
                 Claim claimContrasenia = new Claim("Contrasenia", user.Contrasenia);
                 identity.AddClaim(claimContrasenia);
+                Claim claimToken = new Claim("token", token);
+                identity.AddClaim(claimToken);
                 if(user.Rol == "admin")
                 {
                     identity.AddClaim(new Claim("Admin", "Soy el admin"));
@@ -65,7 +71,10 @@ namespace MvcCineAdoNet.Controllers
                 ClaimsPrincipal userPrincipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
-                    userPrincipal);
+                    userPrincipal, new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+                    });
                 string controller = TempData["controller"].ToString();
                 string action = TempData["action"].ToString();
 
@@ -85,7 +94,7 @@ namespace MvcCineAdoNet.Controllers
         [AuthorizeUsuarios]
         public async Task<IActionResult> PerfilUsuario(int idusuario)
         {
-            Usuario user = await this.repo.FindUsuarioAsync(idusuario);
+            Usuario user = await this.service.PerfilUsuarioAsync();
             return View(user);
         }
 

@@ -1,48 +1,177 @@
 ﻿using MvcCineAdoNet.Models;
 using MvcCineAdoNet.Repositories;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace MvcCineAdoNet.Services
 {
     public class ServiceCineBook : IRepositoryCineBook
     {
-        public Task<List<Pelicula>> BuscadorPeliculasAsync(string titulo)
+        private string UrlCineBook;
+        private MediaTypeWithQualityHeaderValue header;
+        private IHttpContextAccessor contextAccessor;
+
+        public ServiceCineBook(IConfiguration configuration, IHttpContextAccessor contextAccessor)
         {
-            throw new NotImplementedException();
+            this.UrlCineBook = configuration.GetValue<string>("ApiUrls:ApiCineBook");
+            this.header = new MediaTypeWithQualityHeaderValue("application/json");
+            this.contextAccessor = contextAccessor;
         }
 
-        public Task<List<Serie>> BuscadorSeriesAsync(string titulo)
+        public async Task<string> GetTokenAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/auth/login";
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                LoginModel model = new LoginModel
+                {
+                    Email = email,
+                    Password = password
+                };
+                string jsonData = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(request, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    JObject keys = JObject.Parse(data);
+                    string token = keys.GetValue("token").ToString();
+                    return token;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        public Task DeleteFavoritoPeliculaAsync(int idfavorito)
+        private async Task<T> CallApiAsync<T>(string request)
         {
-            throw new NotImplementedException();
+            using(HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                HttpResponseMessage response = await client.GetAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    T data = await response.Content.ReadAsAsync<T>();
+                    return data;
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
         }
 
-        public Task DeleteFavoritoSerieAsync(int idfavorito)
+        private async Task<T> CallApiAsync<T>(string request, string token)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.header);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+                HttpResponseMessage response = await client.GetAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    T data = await response.Content.ReadAsAsync<T>();
+                    return data;
+                }
+                else
+                {
+                    return default(T);
+                }
+            }
         }
 
-        public Task<Pelicula> FindPeliculaAsync(int idpelicula)
+        private string GetTokenUser()
         {
-            throw new NotImplementedException();
+            string token = this.contextAccessor.HttpContext.User.FindFirst(x => x.Type == "token").Value;
+            return token;
         }
 
-        public Task<ViewPeliculaCompleta> FindPeliculaCompletaAsync(int idpelicula)
+        public async Task<List<Pelicula>> BuscadorPeliculasAsync(string titulo)
         {
-            throw new NotImplementedException();
+            string request = "api/peliculas/buscadorpeliculas/" + titulo;
+            List<Pelicula> peliculas = await this.CallApiAsync<List<Pelicula>>(request);
+            return peliculas;
         }
 
-        public Task<Serie> FindSerieAsync(int idserie)
+        public async Task<List<Serie>> BuscadorSeriesAsync(string titulo)
         {
-            throw new NotImplementedException();
+            string request = "api/series/buscadorseries/" + titulo;
+            List<Serie> series = await this.CallApiAsync<List<Serie>>(request);
+            return series;
         }
 
-        public Task<ViewSerieCompleta> FindSerieCompletaAsync(int idserie)
+        public async Task DeleteFavoritoPeliculaAsync(int idfavorito)
         {
-            throw new NotImplementedException();
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/favoritos/deletepeliculafavoritos/" + idfavorito;
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                HttpResponseMessage response = await client.DeleteAsync(request);
+            }
+        }
+
+        public async Task DeleteFavoritoSerieAsync(int idfavorito)
+        {
+            using(HttpClient client = new HttpClient())
+            {
+                string request = "api/favoritos/deleteseriefavoritos/" + idfavorito;
+                client.BaseAddress = new Uri(this.UrlCineBook);
+                client.DefaultRequestHeaders.Clear();
+                HttpResponseMessage response = await client.DeleteAsync(request);
+            }
+        }
+
+        public async Task<Pelicula> FindPeliculaAsync(int idpelicula)
+        {
+            //mirar pa hacer un nuevo metodo en la api para hacer el find
+            //de pelicula simple
+            string request = "api/peliculas/" + idpelicula;
+            Pelicula peli = await this.CallApiAsync<Pelicula>(request);
+            return peli;
+        }
+
+        public async Task<ViewPeliculaCompleta> FindPeliculaCompletaAsync(int idpelicula)
+        {
+            string request = "api/peliculas/" + idpelicula;
+            ViewPeliculaCompleta peliCompleta = await this.CallApiAsync<ViewPeliculaCompleta>(request);
+            return peliCompleta;
+        }
+
+        public async Task<Serie> FindSerieAsync(int idserie)
+        {
+            //mirar pa hacer un nuevo metodo en la api para hacer el find
+            //de serie simple
+            string request = "api/series/" + idserie;
+            Serie serie = await this.CallApiAsync<Serie>(request);
+            return serie;
+        }
+
+        public async Task<ViewSerieCompleta> FindSerieCompletaAsync(int idserie)
+        {
+            string request = "api/series/" + idserie;
+            ViewSerieCompleta serieCompleta = await this.CallApiAsync<ViewSerieCompleta>(request);
+            return serieCompleta;
+        }
+
+        public async Task<Usuario> PerfilUsuarioAsync()
+        {
+            string token = this.GetTokenUser();
+            string request = "api/usuarios/perfilusuario";
+            Usuario user = await this.CallApiAsync<Usuario>(request, token);
+            return user;
         }
 
         public Task<Usuario> FindUsuarioAsync(int idUsuario)
@@ -50,27 +179,56 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<ActoresPelicula>> GetActoresByPeliculaAsync(int idpelicula)
+        public async Task<List<ActoresPelicula>> GetActoresByPeliculaAsync(int idpelicula)
         {
-            throw new NotImplementedException();
+            string request = "api/peliculas/getactoresbypelicula/" + idpelicula;
+            List<ActoresPelicula> actores = await this.CallApiAsync<List<ActoresPelicula>>(request);
+            return actores;
         }
 
-        public Task<List<ActoresSerie>> GetActoresBySerieAsync(int idserie)
+        public async Task<List<ActoresSerie>> GetActoresBySerieAsync(int idserie)
         {
-            throw new NotImplementedException();
+            string request = "api/series/getactoresbyserie/" + idserie;
+            List<ActoresSerie> actores = await this.CallApiAsync<List<ActoresSerie>>(request);
+            return actores;
         }
 
-        public Task<List<ComentarioPelicula>> GetComentariosPeliculaAsync(int idpelicula)
+        public async Task<List<ComentarioPelicula>> GetComentariosPeliculaAsync(int idpelicula)
         {
-            throw new NotImplementedException();
+            string request = "api/peliculas/getcomentariospelicula/" + idpelicula;
+            List<ComentarioPelicula> comentarios = await this.CallApiAsync<List<ComentarioPelicula>>(request);
+            return comentarios;
         }
 
-        public Task<List<ComentarioSerie>> GetComentariosSerieAsync(int idserie)
+        public async Task<List<ComentarioSerie>> GetComentariosSerieAsync(int idserie)
         {
-            throw new NotImplementedException();
+            string request = "api/series/getcomentariosserie/" + idserie;
+            List<ComentarioSerie> comentarios = await this.CallApiAsync<List<ComentarioSerie>>(request);
+            return comentarios;
+        }
+
+        public async Task<List<ViewAllPelicula>> GetPeliculasFavoritosAsync()
+        {
+            string token = this.GetTokenUser();
+            string request = "api/favoritos/getpeliculasfavoritos";
+            List<ViewAllPelicula> peliculasFavs = await this.CallApiAsync<List<ViewAllPelicula>>(request, token);
+            return peliculasFavs;
         }
 
         public Task<List<ViewAllPelicula>> GetFavoritosPeliculaByUsuarioAsync(int idusuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<ViewAllSerie>> GetSeriesFavoritosAsync()
+        {
+            string token = this.GetTokenUser();
+            string request = "api/favoritos/getseriesfavoritos";
+            List<ViewAllSerie> seriesFavs = await this.CallApiAsync<List<ViewAllSerie>>(request, token);
+            return seriesFavs;
+        }
+
+        public Task<List<ViewAllSerie>> GetFavoritosSerieByUsuarioAsync(int idusuario)
         {
             throw new NotImplementedException();
         }
@@ -80,29 +238,26 @@ namespace MvcCineAdoNet.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<ViewAllSerie>> GetFavoritosSerieByUsuarioAsync(int idusuario)
+
+        public async Task<List<Genero>> GetGenerosAsync()
         {
-            throw new NotImplementedException();
+            string request = "api/generos";
+            List<Genero> generos = await this.CallApiAsync<List<Genero>>(request);
+            return generos;
         }
 
-        public Task<List<Genero>> GetGenerosAsync()
+        public async Task<int> GetMaxIdPelicula()
         {
-            throw new NotImplementedException();
+            string request = "api/peliculas/maxidpelicula";
+            int idmaxpelicula = await this.CallApiAsync<int>(request);
+            return idmaxpelicula;
         }
 
-        public int GetMaxIdPelicula()
+        public async Task<List<Pelicula>> GetPeliculasAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<ViewPeliculaCompleta> GetPeliculaRandomAsync(int idpelicula)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Pelicula>> GetPeliculasAsync()
-        {
-            throw new NotImplementedException();
+            string request = "api/peliculas";
+            List<Pelicula> pelis = await this.CallApiAsync<List<Pelicula>>(request);
+            return pelis;
         }
 
         public Task<Pelicula> GetPeliculasByGenero(int idgenero)
@@ -117,7 +272,7 @@ namespace MvcCineAdoNet.Services
 
         public Task<List<Pelicula>> GetPeliculasPopularesAsync()
         {
-            throw new NotImplementedException();
+            
         }
 
         public Task<List<Serie>> GetSeriesAsync()
